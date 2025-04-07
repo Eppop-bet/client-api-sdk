@@ -7,5 +7,4 @@ def test_real_login_sets_token_and_expiration():
 
     assert session.token is not None
     assert session.expiration_time is not None
-
     assert session.session.headers.get("Authorization") == session.token

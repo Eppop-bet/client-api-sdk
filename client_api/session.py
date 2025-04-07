@@ -1,5 +1,5 @@
-
 import requests
+
 
 class Session:
     def __init__(self, base_url, email=None, password=None):

@@ -23,6 +23,7 @@ def test_get_map_by_id():
     assert response["slug"] == "train"
     assert response["name"] == "Train"
 
+
 def test_get_map_by_name():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     maps = Maps(session)
