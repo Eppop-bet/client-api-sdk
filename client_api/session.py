@@ -10,7 +10,7 @@ class AuthenticationError(Exception):
 
 class Session:
     def __init__(self, base_url, email=None, password=None):
-        self.base_url = base_url.rstrip('/')
+        self.base_url = base_url.rstrip("/")
         self.session = requests.Session()
         self.token = None
         self._token_expiration_time = None
@@ -23,22 +23,21 @@ class Session:
             except Exception as e:
                 print(f"Warning: Initial login failed during session creation: {e}")
 
-
     def login(self, email, password):
         self._email = email
         self._password = password
 
         self.token = None
         self._token_expiration_time = None
-        self.session.headers.pop('Authorization', None)
+        self.session.headers.pop("Authorization", None)
 
-        response = self.post('/auth/sign-in', json={
-            'email': email,
-            'password': password
+        response = self.post("/auth/sign-in", json={
+            "email": email,
+            "password": password
         })
 
-        access_token = response.get('AccessToken')
-        expires_in_ms = response.get('ExpiresIn')
+        access_token = response.get("AccessToken")
+        expires_in_ms = response.get("ExpiresIn")
 
         if not access_token:
             raise AuthenticationError(
@@ -55,7 +54,7 @@ class Session:
                 self._token_expiration_time = None
 
         self.token = access_token
-        self.session.headers.update({'Authorization': self.token})
+        self.session.headers.update({"Authorization": self.token})
 
         if self._token_expiration_time:
             print(f"Login successful. Token expires at: {self._token_expiration_time.isoformat()}")
@@ -63,7 +62,7 @@ class Session:
         return response
 
     def _is_token_expired(self):
-        """Checks if the token's exact expiration time has passed."""
+        """Checks if the token"s exact expiration time has passed."""
         if not self.token or not self._token_expiration_time:
             return False
 
@@ -75,12 +74,13 @@ class Session:
         """Ensures the session has a valid, non-expired token."""
         token_was_expired = False
         if self.token and self._is_token_expired():
-            print(f"Token expired at {self._token_expiration_time.isoformat()}, attempting re-login...")
+            print(
+                f"Token expired at {self._token_expiration_time.isoformat()}, attempting re-login..."
+            )
             token_was_expired = True
             self.token = None
             self._token_expiration_time = None
-            self.session.headers.pop('Authorization', None)
-
+            self.session.headers.pop("Authorization", None)
 
         if not self.token:
             if self._email and self._password:
@@ -90,12 +90,12 @@ class Session:
                     if token_was_expired:
                         raise AuthenticationError(f"Failed to refresh expired token: {e}") from e
                     else:
-                         raise AuthenticationError(f"Automatic login failed: {e}") from e
+                        raise AuthenticationError(f"Automatic login failed: {e}") from e
             else:
                 if token_was_expired:
-                     raise AuthenticationError(
+                    raise AuthenticationError(
                         "Token expired, but no credentials stored for automatic re-login."
-                     )
+                    )
                 else:
                     raise AuthenticationError(
                         "Not logged in and no credentials stored. Please call login() first."
@@ -104,7 +104,7 @@ class Session:
     def _request(self, method, path, **kwargs):
         self._ensure_valid_token()
 
-        url = f"{self.base_url}/{path.lstrip('/')}"
+        url = f"{self.base_url}/{path.lstrip("/")}"
         try:
             response = self.session.request(method, url, **kwargs)
             response.raise_for_status()
@@ -112,17 +112,19 @@ class Session:
             if response.status_code == 204:
                 return None
 
-            if 'application/json' in response.headers.get('Content-Type', ''):
+            if "application/json" in response.headers.get("Content-Type", ""):
                 return response.json()
             else:
                 return response.text
 
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 401:
-                 self.token = None
-                 self._token_expiration_time = None
-                 self.session.headers.pop('Authorization', None)
-                 raise AuthenticationError("Unauthorized access. Check credentials or permissions.") from e
+                self.token = None
+                self._token_expiration_time = None
+                self.session.headers.pop("Authorization", None)
+                raise AuthenticationError(
+                    "Unauthorized access. Check credentials or permissions."
+                ) from e
 
             print(f"HTTP Error occurred: {e.response.status_code} {e.response.reason}")
             try:
@@ -136,13 +138,13 @@ class Session:
             raise
 
     def get(self, path, **kwargs):
-        return self._request('GET', path, **kwargs)
+        return self._request("GET", path, **kwargs)
 
     def post(self, path, **kwargs):
-        return self._request('POST', path, **kwargs)
+        return self._request("POST", path, **kwargs)
 
     def put(self, path, **kwargs):
-        return self._request('PUT', path, **kwargs)
+        return self._request("PUT", path, **kwargs)
 
     def delete(self, path, **kwargs):
-        return self._request('DELETE', path, **kwargs)
+        return self._request("DELETE", path, **kwargs)
