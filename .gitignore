@@ -1,2 +1,7 @@
 .env
 env/
+.idea/
+client_api_sdk.egg-info/
+.repomixignore
+repomix.config.json
+repomix-output.txt
