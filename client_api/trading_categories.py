@@ -1,5 +1,6 @@
 from .base_resource import BaseResource
 
+
 class TradingCategory(BaseResource):
     """Handles operations related to the /trading-categories endpoint."""
     def __init__(self, session):

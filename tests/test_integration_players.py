@@ -20,5 +20,3 @@ def test_get_player_by_id():
     response = player.get_player(3)
 
     assert response["playerId"] == 3
-
-

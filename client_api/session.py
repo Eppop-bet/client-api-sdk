@@ -22,6 +22,7 @@ class Session:
 
     Handles token acquisition, storage, automatic refresh, and making authenticated requests.
     """
+
     def __init__(self, base_url, email=None, password=None):
         """
         Initializes the session.
@@ -115,13 +116,13 @@ class Session:
         """Ensures the session has a valid, non-expired token, attempting re-login if necessary."""
         token_was_expired = False
         if self._is_token_expired():
-            if self.token: # Only log if there was a token that actually expired
-                 logger.info(
-                    f"Token expired or nearing expiry (expiry time: {self._token_expiration_time}), attempting re-login..."
-                 )
-                 token_was_expired = True
+            if self.token:  # Only log if there was a token that actually expired
+                logger.info(
+                    f"Token expired or nearing expiry "
+                    f"(expiry time: {self._token_expiration_time}), attempting re-login..."
+                )
+                token_was_expired = True
 
-            # Clear potentially invalid token info
             self.token = None
             self._token_expiration_time = None
             self.session.headers.pop("Authorization", None)

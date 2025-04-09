@@ -1,5 +1,6 @@
 from .base_resource import BaseResource
 
+
 class Sports(BaseResource):
     """Handles operations related to the /sports endpoint."""
     def __init__(self, session):

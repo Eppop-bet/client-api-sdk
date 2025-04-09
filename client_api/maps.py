@@ -1,5 +1,6 @@
 from .base_resource import BaseResource
 
+
 class Maps(BaseResource):
     """Handles operations related to the /maps endpoint."""
     def __init__(self, session):

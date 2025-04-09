@@ -1,5 +1,6 @@
 from .base_resource import BaseResource
 
+
 class Teams(BaseResource):
     """Handles operations related to the /teams endpoint."""
     def __init__(self, session):

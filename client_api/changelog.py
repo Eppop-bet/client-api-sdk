@@ -1,7 +1,4 @@
-import os
-
 from .base_resource import BaseResource
-from .session import Session
 
 
 class Changelog(BaseResource):

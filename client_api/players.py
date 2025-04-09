@@ -1,5 +1,6 @@
 from .base_resource import BaseResource
 
+
 class Players(BaseResource):
     """Handles operations related to the /players endpoint."""
     def __init__(self, session):

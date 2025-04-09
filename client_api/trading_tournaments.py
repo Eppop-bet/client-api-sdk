@@ -1,12 +1,20 @@
 from .base_resource import BaseResource
 
+
 class TradingTournament(BaseResource):
     """Handles operations related to the /trading-tournaments endpoint."""
     def __init__(self, session):
         super().__init__(session)
         self.base_url = "/trading-tournaments"
 
-    def list_trading_tournaments(self, skip=None, take=None, search=None, sport_id=None, trading_category_id=None, order_by=None):
+    def list_trading_tournaments(
+            self,
+            skip=None,
+            take=None,
+            search=None,
+            sport_id=None,
+            trading_category_id=None,
+            order_by=None):
         """
         Fetches a list of trading tournaments with optional pagination, search, sorting, and filtering.
 

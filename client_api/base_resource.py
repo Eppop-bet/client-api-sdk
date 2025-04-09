@@ -12,7 +12,7 @@ class BaseResource:
             session (Session): The authenticated session object.
         """
         self.session = session
-        self.base_url = "" # Must be overridden by subclasses
+        self.base_url = ""  # Must be overridden by subclasses
 
     def _build_common_params(self, params, skip=None, take=None, order_by=None, search=None):
         """
