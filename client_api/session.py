@@ -2,6 +2,8 @@ import requests
 from datetime import datetime, timedelta, timezone
 import logging
 
+from client_api.models import SignInResponse
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -45,7 +47,7 @@ class Session:
             except (AuthenticationError, EsourceCommunicationError) as e:
                 logger.warning(f"Initial login failed during session creation: {e}")
 
-    def login(self, email, password):
+    def login(self, email, password) -> SignInResponse:
         """
         Authenticates with the API using email and password to obtain a token.
 
@@ -74,6 +76,8 @@ class Session:
                 "email": email,
                 "password": password
             })
+
+            sign_in_data = SignInResponse(**response_json)
         except EsourceCommunicationError as e:
             raise AuthenticationError(f"Login request failed: {e}") from e
 
@@ -85,7 +89,7 @@ class Session:
 
         if expires_in_seconds_val is not None:
             try:
-                expires_in_seconds = int(expires_in_seconds_val)
+                expires_in_seconds = sign_in_data.expires_in
                 now = datetime.now(timezone.utc)
                 buffer = timedelta(seconds=60)
                 self._token_expiration_time = now + timedelta(seconds=expires_in_seconds) - buffer
@@ -93,7 +97,7 @@ class Session:
             except (ValueError, TypeError):
                 logger.warning(f"Could not parse 'ExpiresIn' value (expected seconds): {expires_in_seconds_val}. "
                                "Token expiration handling may not work.")
-                self._token_expiration_time = None
+                self._token_expiration_time = sign_in_data.access_token
         else:
             logger.warning("No 'ExpiresIn' value found in response. Token expiration cannot be tracked.")
             self._token_expiration_time = None
@@ -101,7 +105,7 @@ class Session:
         self.token = access_token
         self.session.headers.update({"Authorization": self.token})
 
-        return response_json
+        return sign_in_data
 
     def _is_token_expired(self):
         """Checks if the stored token is considered expired."""

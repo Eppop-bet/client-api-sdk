@@ -1,4 +1,7 @@
+from typing import List
+
 from .base_resource import BaseResource
+from .models import ChangeLog
 
 
 class Changelog(BaseResource):
@@ -7,7 +10,7 @@ class Changelog(BaseResource):
         super().__init__(session)
         self.base_url = "/changelog"
 
-    def list_changelogs(self, timestamp):
+    def list_changelogs(self, timestamp) -> List[ChangeLog]:
         """
         Fetches changelog entries since a specific timestamp.
 
@@ -22,4 +25,6 @@ class Changelog(BaseResource):
             raise ValueError("The 'timestamp' parameter is required.")
 
         params = {"timestamp": timestamp}
-        return self.session.get(self.base_url, params=params)
+        data = self.session.get(self.base_url, params=params)
+
+        return [ChangeLog(**item) for item in data]

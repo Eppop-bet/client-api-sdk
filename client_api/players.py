@@ -1,4 +1,7 @@
+from typing import List
+
 from .base_resource import BaseResource
+from .models import Player
 
 
 class Players(BaseResource):
@@ -7,22 +10,25 @@ class Players(BaseResource):
         super().__init__(session)
         self.base_url = "/players"
 
-    def list_players(self, skip=None, take=None, order_by=None, search=None):
+    def list_players(self, skip=None, take=None, order_by=None, search=None) -> List[Player]:
         """
         Fetches a list of players with optional pagination, sorting, and search.
 
         Args:
             skip (int, optional): Number of records to skip.
             take (int, optional): Number of records to retrieve. <--- Doc updated
-            order_by (str, optional): Field and direction to sort by (e.g., "name ASC").
+            order_by (dict, optional): Field and direction to sort by. Example: {"name": "asc"} or {"name": "desc"}.
             search (str, optional): Search term for player names.
 
         Returns:
             list: A list of player objects.
         """
-        return self.list(skip=skip, take=take, order_by=order_by, search=search)
+        params = self._build_common_params({}, skip=skip, take=take, order_by=order_by, search=search)
+        data = self.session.get(self.base_url, params=params)
 
-    def get_player(self, player_id):
+        return [Player(**item) for item in data]
+
+    def get_player(self, player_id) -> Player:
         """
         Fetches a single player by their ID.
 
@@ -32,4 +38,5 @@ class Players(BaseResource):
         Returns:
             dict: The player details.
         """
-        return self.get(player_id)
+        data = self.get(player_id)
+        return Player(**data)

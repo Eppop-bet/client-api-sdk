@@ -21,8 +21,9 @@ class BaseResource:
         Args:
             params (dict): The dictionary to add parameters to.
             skip (int, optional): Number of records to skip.
-            take (int, optional): Number of records to retrieve. <--- Changed from limit
-            order_by (str, optional): Sorting order (e.g., "name ASC").
+            take (int, optional): Number of records to retrieve.
+            order_by (dict, optional): Sorting order. Example: {"name": "asc"}.
+                                       Requests library handles encoding (e.g., orderBy[name]=asc).
             search (str, optional): Search term.
 
         Returns:
@@ -48,7 +49,7 @@ class BaseResource:
         Args:
             skip (int, optional): Number of records to skip for pagination.
             take (int, optional): Number of records to retrieve. <--- Changed from limit
-            order_by (str, optional): Field and direction to sort by (e.g., "name ASC").
+            order_by (dict, optional): Field and direction to sort by. Example: {"name": "asc"}.
             search (str, optional): Search term to filter results.
 
         Returns:

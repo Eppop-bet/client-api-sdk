@@ -13,14 +13,15 @@ class Sports(BaseResource):
 
         Args:
             skip (int, optional): Number of records to skip.
-            take (int, optional): Number of records to retrieve. <--- Doc updated
-            order_by (str, optional): Field and direction to sort by (e.g., "name ASC").
+            take (int, optional): Number of records to retrieve.
+            order_by (dict, optional): Field and direction to sort by. Example: {"name": "asc"} or {"name": "desc"}.
             search (str, optional): Search term for sport names.
 
         Returns:
             list: A list of sport objects.
         """
-        return self.list(skip=skip, take=take, order_by=order_by, search=search)
+        params = self._build_common_params({}, skip=skip, take=take, order_by=order_by, search=search)
+        return self.session.get(self.base_url, params=params)
 
     def get_sport(self, sport_id):
         """

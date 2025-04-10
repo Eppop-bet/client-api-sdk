@@ -13,8 +13,7 @@ class TradingTournament(BaseResource):
             take=None,
             search=None,
             sport_id=None,
-            trading_category_id=None,
-            order_by=None):
+            trading_category_id=None):
         """
         Fetches a list of trading tournaments with optional pagination, search, sorting, and filtering.
 
@@ -24,8 +23,6 @@ class TradingTournament(BaseResource):
             search (str, optional): Search term for trading tournament names.
             sport_id (int or str, optional): Filter tournaments belonging to this sport ID.
             trading_category_id (int or str, optional): Filter tournaments belonging to this category ID.
-            order_by (str, optional): Field and direction to sort by (e.g., "name ASC").
-                                      Note: Verify if API supports sorting on this endpoint.
 
         Returns:
             list: A list of trading tournament objects.
@@ -36,7 +33,7 @@ class TradingTournament(BaseResource):
         if trading_category_id is not None:
             params["tradingCategoryId"] = trading_category_id
 
-        params = self._build_common_params(params, skip=skip, take=take, order_by=order_by, search=search)
+        params = self._build_common_params(params, skip=skip, take=take, order_by=None, search=search)
 
         return self.session.get(self.base_url, params=params)
 

@@ -1,8 +1,11 @@
+import pytest
+
 from client_api.session import Session
 from client_api.maps import Maps
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 
+@pytest.mark.integration
 def test_get_all_maps():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     maps = Maps(session)
@@ -13,6 +16,7 @@ def test_get_all_maps():
     assert all("mapId" in m and "name" in m and "slug" for m in response)
 
 
+@pytest.mark.integration
 def test_get_map_by_id():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     maps = Maps(session)
@@ -24,6 +28,7 @@ def test_get_map_by_id():
     assert response["name"] == "Train"
 
 
+@pytest.mark.integration
 def test_get_map_by_name():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     maps = Maps(session)

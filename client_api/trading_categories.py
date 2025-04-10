@@ -7,7 +7,7 @@ class TradingCategory(BaseResource):
         super().__init__(session)
         self.base_url = "/trading-categories"
 
-    def list_trading_categories(self, skip=None, take=None, search=None, sport_id=None, order_by=None):
+    def list_trading_categories(self, skip=None, take=None, search=None, sport_id=None):
         """
         Fetches a list of trading categories with optional pagination, search, sorting, and filtering by sport.
 
@@ -16,8 +16,6 @@ class TradingCategory(BaseResource):
             take (int, optional): Number of items to take for pagination.
             search (str, optional): Search term for trading category names.
             sport_id (int or str, optional): Filter categories belonging to this sport ID.
-            order_by (str, optional): Field and direction to sort by (e.g., "name ASC").
-                                      Note: Verify if API supports sorting on this endpoint.
 
         Returns:
             list: A list of trading category objects.
@@ -26,7 +24,7 @@ class TradingCategory(BaseResource):
         if sport_id is not None:
             params["sportId"] = sport_id
 
-        params = self._build_common_params(params, skip=skip, take=take, order_by=order_by, search=search)
+        params = self._build_common_params(params, skip=skip, take=take, order_by=None, search=search)
 
         return self.session.get(self.base_url, params=params)
 

@@ -14,8 +14,7 @@ class TradingEvent(BaseResource):
             search=None,
             sport_id=None,
             trading_tournament_id=None,
-            statuses=None,
-            order_by=None):
+            statuses=None):
         """
         Fetches a list of trading events with optional pagination, search, sorting, and filtering.
 
@@ -26,8 +25,6 @@ class TradingEvent(BaseResource):
             sport_id (int or str, optional): Filter events belonging to this sport ID.
             trading_tournament_id (int or str, optional): Filter events belonging to this tournament ID.
             statuses (str, optional): Comma-separated string of statuses to filter by (e.g., "Open,Suspended").
-            order_by (str, optional): Field and direction to sort by (e.g., "name ASC").
-                                      Note: Verify if API supports sorting on this endpoint.
 
         Returns:
             list: A list of trading event objects.
@@ -40,7 +37,7 @@ class TradingEvent(BaseResource):
         if statuses:
             params["statuses"] = statuses
 
-        params = self._build_common_params(params, skip=skip, take=take, order_by=order_by, search=search)
+        params = self._build_common_params(params, skip=skip, take=take, order_by=None, search=search)
 
         return self.session.get(self.base_url, params=params)
 
