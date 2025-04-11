@@ -1,4 +1,7 @@
+from typing import List
+
 from .base_resource import BaseResource
+from .models import Team, TeamWithPlayers
 
 
 class Teams(BaseResource):
@@ -7,7 +10,7 @@ class Teams(BaseResource):
         super().__init__(session)
         self.base_url = "/teams"
 
-    def list_teams(self, skip=None, take=None, order_by=None, search=None):
+    def list_teams(self, skip=None, take=None, order_by=None, search=None) -> List[Team]:
         """
         Fetches a list of teams with optional pagination, sorting, and search.
 
@@ -21,9 +24,10 @@ class Teams(BaseResource):
             list: A list of team objects.
         """
         params = self._build_common_params({}, skip=skip, take=take, order_by=order_by, search=search)
-        return self.session.get(self.base_url, params=params)
+        data = self.session.get(self.base_url, params=params)
+        return [Team(**item) for item in data]
 
-    def get_team(self, team_id):
+    def get_team(self, team_id) -> Team:
         """
         Fetches a single team by its ID.
 
@@ -33,9 +37,10 @@ class Teams(BaseResource):
         Returns:
             dict: The team details.
         """
-        return self.get(team_id)
+        data = self.get(team_id)
+        return Team(**data)
 
-    def get_team_players(self, team_id):
+    def get_team_players(self, team_id) -> List[TeamWithPlayers]:
         """
         Fetches a team's details including its players.
 
@@ -46,4 +51,5 @@ class Teams(BaseResource):
             list: A list containing the team object with an embedded list of player objects.
                   (Note: API spec shows array response, likely wrapping the TeamWithPlayers schema).
         """
-        return self.session.get(f"{self.base_url}/{team_id}/players")
+        data = self.session.get(f"{self.base_url}/{team_id}/players")
+        return [TeamWithPlayers(**item) for item in data]

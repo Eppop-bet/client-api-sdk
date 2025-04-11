@@ -1,13 +1,16 @@
+from typing import List
+
 from .base_resource import BaseResource
+from .models import TradingCategory
 
 
-class TradingCategory(BaseResource):
+class TradingCategories(BaseResource):
     """Handles operations related to the /trading-categories endpoint."""
     def __init__(self, session):
         super().__init__(session)
         self.base_url = "/trading-categories"
 
-    def list_trading_categories(self, skip=None, take=None, search=None, sport_id=None):
+    def list_trading_categories(self, skip=None, take=None, search=None, sport_id=None) -> List[TradingCategory]:
         """
         Fetches a list of trading categories with optional pagination, search, sorting, and filtering by sport.
 
@@ -26,9 +29,10 @@ class TradingCategory(BaseResource):
 
         params = self._build_common_params(params, skip=skip, take=take, order_by=None, search=search)
 
-        return self.session.get(self.base_url, params=params)
+        data = self.session.get(self.base_url, params=params)
+        return [TradingCategory(**item) for item in data]
 
-    def get_trading_category(self, category_id):
+    def get_trading_category(self, category_id) -> TradingCategory:
         """
         Fetches a single trading category by its ID.
 
@@ -38,4 +42,5 @@ class TradingCategory(BaseResource):
         Returns:
             dict: The trading category details.
         """
-        return self.get(category_id)
+        data = self.get(category_id)
+        return TradingCategory(**data)

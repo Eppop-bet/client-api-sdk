@@ -1,7 +1,10 @@
+from typing import List
+
 from .base_resource import BaseResource
+from .models import TradingTournament
 
 
-class TradingTournament(BaseResource):
+class TradingTournaments(BaseResource):
     """Handles operations related to the /trading-tournaments endpoint."""
     def __init__(self, session):
         super().__init__(session)
@@ -13,7 +16,7 @@ class TradingTournament(BaseResource):
             take=None,
             search=None,
             sport_id=None,
-            trading_category_id=None):
+            trading_category_id=None) -> List[TradingTournament]:
         """
         Fetches a list of trading tournaments with optional pagination, search, sorting, and filtering.
 
@@ -35,9 +38,10 @@ class TradingTournament(BaseResource):
 
         params = self._build_common_params(params, skip=skip, take=take, order_by=None, search=search)
 
-        return self.session.get(self.base_url, params=params)
+        data = self.session.get(self.base_url, params=params)
+        return [TradingTournament(**item) for item in data]
 
-    def get_trading_tournament(self, tournament_id):
+    def get_trading_tournament(self, tournament_id) -> TradingTournament:
         """
         Fetches a single trading tournament by its ID.
 
@@ -47,4 +51,5 @@ class TradingTournament(BaseResource):
         Returns:
             dict: The trading tournament details.
         """
-        return self.get(tournament_id)
+        data = self.get(tournament_id)
+        return TradingTournament(**data)

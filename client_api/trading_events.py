@@ -1,7 +1,10 @@
+from typing import List
+
 from .base_resource import BaseResource
+from .models import TradingEvent
 
 
-class TradingEvent(BaseResource):
+class TradingEvents(BaseResource):
     """Handles operations related to the /trading-events endpoint."""
     def __init__(self, session):
         super().__init__(session)
@@ -14,7 +17,7 @@ class TradingEvent(BaseResource):
             search=None,
             sport_id=None,
             trading_tournament_id=None,
-            statuses=None):
+            statuses=None) -> List[TradingEvent]:
         """
         Fetches a list of trading events with optional pagination, search, sorting, and filtering.
 
@@ -39,9 +42,10 @@ class TradingEvent(BaseResource):
 
         params = self._build_common_params(params, skip=skip, take=take, order_by=None, search=search)
 
-        return self.session.get(self.base_url, params=params)
+        data = self.session.get(self.base_url, params=params)
+        return [TradingEvent(**item) for item in data]
 
-    def get_trading_event(self, event_id):
+    def get_trading_event(self, event_id) -> TradingEvent:
         """
         Fetches a single trading event by its ID.
 
@@ -51,4 +55,5 @@ class TradingEvent(BaseResource):
         Returns:
             dict: The trading event details, potentially including markets and outcomes.
         """
-        return self.get(event_id)
+        data = self.get(event_id)
+        return TradingEvent(**data)

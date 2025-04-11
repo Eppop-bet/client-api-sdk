@@ -1,4 +1,7 @@
+from typing import List
+
 from .base_resource import BaseResource
+from .models import Sport
 
 
 class Sports(BaseResource):
@@ -7,7 +10,7 @@ class Sports(BaseResource):
         super().__init__(session)
         self.base_url = "/sports"
 
-    def list_sports(self, skip=None, take=None, order_by=None, search=None):
+    def list_sports(self, skip=None, take=None, order_by=None, search=None) -> List[Sport]:
         """
         Fetches a list of sports with optional pagination, sorting, and search.
 
@@ -21,9 +24,10 @@ class Sports(BaseResource):
             list: A list of sport objects.
         """
         params = self._build_common_params({}, skip=skip, take=take, order_by=order_by, search=search)
-        return self.session.get(self.base_url, params=params)
+        data = self.session.get(self.base_url, params=params)
+        return [Sport(**item) for item in data]
 
-    def get_sport(self, sport_id):
+    def get_sport(self, sport_id) -> Sport:
         """
         Fetches a single sport by its ID.
 
@@ -33,4 +37,5 @@ class Sports(BaseResource):
         Returns:
             dict: The sport details.
         """
-        return self.get(sport_id)
+        data = self.get(sport_id)
+        return Sport(**data)
