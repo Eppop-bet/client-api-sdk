@@ -46,6 +46,7 @@ class Session:
                 self.login(email, password)
             except (AuthenticationError, EsourceCommunicationError) as e:
                 logger.warning(f"Initial login failed during session creation: {e}")
+                raise AuthenticationError(f"Initial login failed during session creation: {e}") from e
 
     def login(self, email, password) -> SignInResponse:
         """
@@ -226,3 +227,4 @@ class Session:
     def delete(self, path, **kwargs):
         """Sends a DELETE request."""
         return self._request("DELETE", path, **kwargs)
+    

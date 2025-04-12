@@ -4,39 +4,11 @@ from datetime import datetime, timezone
 from client_api.session import AuthenticationError, EsourceCommunicationError
 from client_api.players import Players
 from client_api.models import Player
-from conftest import create_mock_response
+from conftest import create_mock_response, PLAYER_1, PLAYER_2
 
 
-MOCK_PLAYER_1_DATA = {
-    "playerId": 101,
-    "name": "Mock Player One",
-    "firstName": "Mock",
-    "lastName": "Player One",
-    "active": True,
-    "age": 25,
-    "birthday": "1998-01-15T00:00:00Z",
-    "imageUrl": "http://example.com/player1.jpg",
-    "modifiedAt": "2023-10-26T10:00:00Z",
-    "nationality": "Mocklandian",
-    "role": "Test Role",
-    "slug": "mock-player-one"
-}
-MOCK_PLAYER_2_DATA = {
-    "playerId": 102,
-    "name": "Mock Player Two",
-    "firstName": "Mock",
-    "lastName": "Player Two",
-    "active": False,
-    "age": None,
-    "birthday": None,
-    "imageUrl": None,
-    "modifiedAt": "2023-10-27T11:00:00Z",
-    "nationality": None,
-    "role": None,
-    "slug": "mock-player-two"
-}
 
-MOCK_PLAYER_LIST_DATA = [MOCK_PLAYER_1_DATA, MOCK_PLAYER_2_DATA]
+MOCK_PLAYER_LIST_DATA = [PLAYER_1, PLAYER_2]
 
 
 def test_list_players_success(mock_session, mocker):
@@ -65,7 +37,7 @@ def test_get_player_success(mock_session, mocker):
     session, mock_request = mock_session
     player_id_to_get = 101
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=MOCK_PLAYER_1_DATA)
+    mock_api_resp = create_mock_response(mocker, 200, json_data=PLAYER_1)
     mock_request.return_value = mock_api_resp
 
     players_resource = Players(session)

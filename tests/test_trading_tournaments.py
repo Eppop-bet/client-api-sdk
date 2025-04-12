@@ -5,19 +5,9 @@ from client_api.trading_tournaments import TradingTournaments
 from client_api.models import TradingTournament
 from client_api.session import AuthenticationError, EsourceCommunicationError
 
-from conftest import create_mock_response
+from conftest import create_mock_response, TOURNAMENT_1, TOURNAMENT_2, TOURNAMENT_3
 
-
-MOCK_TOURNAMENT_1_DATA = {
-    "id": 301, "name": "Major Championship", "sportId": 1, "tradingCategoryId": 10
-}
-MOCK_TOURNAMENT_2_DATA = {
-    "id": 302, "name": "Regional Qualifier", "sportId": 1, "tradingCategoryId": None
-}
-MOCK_TOURNAMENT_3_DATA = {
-    "id": 303, "name": "Another Game League", "sportId": 2, "tradingCategoryId": 20
-}
-MOCK_TOURNAMENT_LIST_DATA = [MOCK_TOURNAMENT_1_DATA, MOCK_TOURNAMENT_2_DATA]
+MOCK_TOURNAMENT_LIST_DATA = [TOURNAMENT_1, TOURNAMENT_2, TOURNAMENT_3]
 
 
 
@@ -31,7 +21,7 @@ def test_list_trading_tournaments_success(mock_session, mocker):
     result_tournaments = tournaments_resource.list_trading_tournaments()
 
     assert isinstance(result_tournaments, list)
-    assert len(result_tournaments) == 2
+    assert len(result_tournaments) == 3
     assert all(isinstance(t, TradingTournament) for t in result_tournaments)
     assert result_tournaments[0].id == 301
     assert result_tournaments[0].name == "Major Championship"
@@ -42,7 +32,7 @@ def test_list_trading_tournaments_success(mock_session, mocker):
 def test_list_trading_tournaments_with_filters_success(mock_session, mocker):
     session, mock_request = mock_session
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=[MOCK_TOURNAMENT_1_DATA])
+    mock_api_resp = create_mock_response(mocker, 200, json_data=[TOURNAMENT_1])
     mock_request.return_value = mock_api_resp
 
     tournaments_resource = TradingTournaments(session)
@@ -64,7 +54,7 @@ def test_get_trading_tournament_success(mock_session, mocker):
     session, mock_request = mock_session
     tournament_id_to_get = 301
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=MOCK_TOURNAMENT_1_DATA)
+    mock_api_resp = create_mock_response(mocker, 200, json_data=TOURNAMENT_1)
     mock_request.return_value = mock_api_resp
 
     tournaments_resource = TradingTournaments(session)

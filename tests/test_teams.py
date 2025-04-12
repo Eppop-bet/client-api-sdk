@@ -5,33 +5,13 @@ from client_api.teams import Teams
 from client_api.models import Team, TeamWithPlayers, Player
 from client_api.session import AuthenticationError, EsourceCommunicationError
 
-from conftest import create_mock_response
+from conftest import create_mock_response, TEAM_1, TEAM_2, PLAYER_1, PLAYER_2
 
-
-MOCK_PLAYER_TEAM_DATA_1 = {
-    "playerId": 501, "name": "Team Player A", "firstName": "Team", "lastName": "Player A",
-    "active": True, "age": 22, "birthday": "2001-03-10T00:00:00Z", "imageUrl": None,
-    "modifiedAt": "2023-11-01T10:00:00Z", "nationality": "Testland", "role": "Entry", "slug": "team-player-a"
-}
-MOCK_PLAYER_TEAM_DATA_2 = {
-    "playerId": 502, "name": "Team Player B", "firstName": "Team", "lastName": "Player B",
-    "active": True, "age": 24, "birthday": "1999-07-20T00:00:00Z", "imageUrl": None,
-    "modifiedAt": "2023-11-02T11:00:00Z", "nationality": "Testland", "role": "Support", "slug": "team-player-b"
-}
-
-MOCK_TEAM_1_DATA = {
-    "teamId": 201, "name": "Alpha Team", "slug": "alpha-team", "acronym": "AT",
-    "imageUrl": "http://example.com/alpha.png", "location": "West", "modifiedAt": "2023-10-10T12:00:00Z"
-}
-MOCK_TEAM_2_DATA = {
-    "teamId": 202, "name": "Bravo Team", "slug": "bravo-team", "acronym": "BT",
-    "imageUrl": None, "location": "East", "modifiedAt": "2023-10-11T13:00:00Z"
-}
-MOCK_TEAM_LIST_DATA = [MOCK_TEAM_1_DATA, MOCK_TEAM_2_DATA]
+MOCK_TEAM_LIST_DATA = [TEAM_1, TEAM_2]
 
 MOCK_TEAM_WITH_PLAYERS_DATA = {
-    **MOCK_TEAM_1_DATA,
-    "players": [MOCK_PLAYER_TEAM_DATA_1, MOCK_PLAYER_TEAM_DATA_2]
+    **TEAM_1,
+    "players": [PLAYER_1, PLAYER_2]
 }
 MOCK_TEAM_PLAYERS_RESPONSE_DATA = [MOCK_TEAM_WITH_PLAYERS_DATA]
 
@@ -58,7 +38,7 @@ def test_list_teams_success(mock_session, mocker):
 def test_list_teams_with_params_success(mock_session, mocker):
     session, mock_request = mock_session
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=[MOCK_TEAM_1_DATA])
+    mock_api_resp = create_mock_response(mocker, 200, json_data=[TEAM_1])
     mock_request.return_value = mock_api_resp
 
     teams_resource = Teams(session)
@@ -74,7 +54,7 @@ def test_get_team_success(mock_session, mocker):
     session, mock_request = mock_session
     team_id_to_get = 201
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=MOCK_TEAM_1_DATA)
+    mock_api_resp = create_mock_response(mocker, 200, json_data=TEAM_1)
     mock_request.return_value = mock_api_resp
 
     teams_resource = Teams(session)
@@ -121,8 +101,8 @@ def test_get_team_players_success(mock_session, mocker):
     assert isinstance(result_team_with_players.players, list)
     assert len(result_team_with_players.players) == 2
     assert all(isinstance(p, Player) for p in result_team_with_players.players)
-    assert result_team_with_players.players[0].playerId == 501
-    assert result_team_with_players.players[1].name == "Team Player B"
+    assert result_team_with_players.players[0].playerId == 101
+    assert result_team_with_players.players[1].name == "Mock Player Two"
 
 
 def test_get_team_players_team_not_found(mock_session, mocker):

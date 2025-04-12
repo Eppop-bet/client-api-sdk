@@ -4,13 +4,10 @@ from client_api.trading_categories import TradingCategories
 from client_api.models import TradingCategory
 from client_api.session import AuthenticationError, EsourceCommunicationError
 
-from conftest import create_mock_response
+from conftest import create_mock_response, CATEGORY_1, CATEGORY_2, CATEGORY_3
 
 
-MOCK_CATEGORY_1_DATA = {"id": 10, "name": "Premier League", "sportId": 1}
-MOCK_CATEGORY_2_DATA = {"id": 11, "name": "Champions League", "sportId": 1}
-MOCK_CATEGORY_3_DATA = {"id": 20, "name": "World Championship", "sportId": 2}
-MOCK_CATEGORY_LIST_DATA = [MOCK_CATEGORY_1_DATA, MOCK_CATEGORY_2_DATA]
+MOCK_CATEGORY_LIST_DATA = [CATEGORY_1, CATEGORY_2, CATEGORY_3]
 
 
 
@@ -24,12 +21,12 @@ def test_list_trading_categories_success(mock_session, mocker):
     result_categories = categories_resource.list_trading_categories()
 
     assert isinstance(result_categories, list)
-    assert len(result_categories) == 2
+    assert len(result_categories) == 3
     assert all(isinstance(c, TradingCategory) for c in result_categories)
     assert result_categories[0].id == 10
     assert result_categories[0].name == "Premier League"
     assert result_categories[1].id == 11
-    assert result_categories[1].sportId == 1
+    assert result_categories[1].sportId == 3
 
 
 def test_list_trading_categories_with_filters_success(mock_session, mocker):
@@ -40,7 +37,7 @@ def test_list_trading_categories_with_filters_success(mock_session, mocker):
 
     categories_resource = TradingCategories(session)
     result_categories = categories_resource.list_trading_categories(
-        sport_id=1,
+        sport_id=3,
         search="League",
         skip=0,
         take=5
@@ -56,7 +53,7 @@ def test_get_trading_category_success(mock_session, mocker):
     session, mock_request = mock_session
     category_id_to_get = 10
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=MOCK_CATEGORY_1_DATA)
+    mock_api_resp = create_mock_response(mocker, 200, json_data=CATEGORY_1)
     mock_request.return_value = mock_api_resp
 
     categories_resource = TradingCategories(session)
@@ -65,7 +62,7 @@ def test_get_trading_category_success(mock_session, mocker):
     assert isinstance(result_category, TradingCategory)
     assert result_category.id == category_id_to_get
     assert result_category.name == "Premier League"
-    assert result_category.sportId == 1
+    assert result_category.sportId == 3
 
 
 def test_get_trading_category_not_found(mock_session, mocker):

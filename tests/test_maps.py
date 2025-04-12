@@ -5,11 +5,9 @@ from client_api.maps import Maps
 from client_api.models import Map
 from client_api.session import AuthenticationError, EsourceCommunicationError
 
-from conftest import create_mock_response
+from conftest import create_mock_response, MAP_1, MAP_2
 
-MOCK_MAP_1_DATA = {"mapId": 1, "name": "Mirage", "slug": "mirage"}
-MOCK_MAP_2_DATA = {"mapId": 3, "name": "Train", "slug": "train"}
-MOCK_MAP_LIST_DATA = [MOCK_MAP_1_DATA, MOCK_MAP_2_DATA]
+MOCK_MAP_LIST_DATA = [MAP_1, MAP_2]
 
 
 def test_list_maps_success(mock_session, mocker):
@@ -33,7 +31,7 @@ def test_list_maps_success(mock_session, mocker):
 def test_list_maps_with_params_success(mock_session, mocker):
     session, mock_request = mock_session
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=[MOCK_MAP_1_DATA])
+    mock_api_resp = create_mock_response(mocker, 200, json_data=[MAP_1])
     mock_request.return_value = mock_api_resp
 
     maps_resource = Maps(session)
@@ -49,7 +47,7 @@ def test_get_map_success(mock_session, mocker):
     session, mock_request = mock_session
     map_id_to_get = 1
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=MOCK_MAP_1_DATA)
+    mock_api_resp = create_mock_response(mocker, 200, json_data=MAP_1)
     mock_request.return_value = mock_api_resp
 
     maps_resource = Maps(session)

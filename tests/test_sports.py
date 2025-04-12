@@ -3,12 +3,10 @@ import pytest
 from client_api.session import AuthenticationError, EsourceCommunicationError
 from client_api.sports import Sports
 from client_api.models import Sport
-from conftest import create_mock_response
+from conftest import create_mock_response, SPORT_1, SPORT_2
 
 
-MOCK_SPORT_1_DATA = {"id": 1, "name": "Counter-Strike", "slug": "cs-go"}
-MOCK_SPORT_2_DATA = {"id": 2, "name": "League of Legends", "slug": "lol"}
-MOCK_SPORT_LIST_DATA = [MOCK_SPORT_1_DATA, MOCK_SPORT_2_DATA]
+MOCK_SPORT_LIST_DATA = [SPORT_1, SPORT_2]
 
 def test_list_sports_success(mock_session, mocker):
     """Test successfully listing sports with mock data."""
@@ -24,16 +22,16 @@ def test_list_sports_success(mock_session, mocker):
     assert isinstance(result_sports, list)
     assert len(result_sports) == 2
     assert isinstance(result_sports[0], Sport)
-    assert result_sports[0].id == 1
+    assert result_sports[0].id == 3
     assert result_sports[1].slug == "lol"
 
 
 def test_get_sport_success(mock_session, mocker):
     """Test successfully getting a single sport."""
     session, mock_request = mock_session
-    sport_id_to_get = 1
+    sport_id_to_get = 3
 
-    mock_api_resp = create_mock_response(mocker, 200, json_data=MOCK_SPORT_1_DATA)
+    mock_api_resp = create_mock_response(mocker, 200, json_data=SPORT_1)
     mock_request.return_value = mock_api_resp
 
     sports_resource = Sports(session)

@@ -55,8 +55,8 @@ class TradingOutcome(BaseModel):
     id: int
     name: str
     tradingMarketId: int
-    status: Literal["Win", "Lose", "Return", "Return025", "Return075"]
-    result: Literal["Win", "Lose", "Return", "Return025", "Return075"]
+    status: Literal["Unknown", "Win", "Lose", "Return", "Return025", "Return075"]
+    result: Literal["Unknown", "Win", "Lose", "Return", "Return025", "Return075"]
     score: Optional[int] = None
     price: float
     probability: float
