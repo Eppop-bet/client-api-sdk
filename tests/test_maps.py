@@ -1,5 +1,4 @@
 import pytest
-import requests.exceptions
 
 from client_api.maps import Maps
 from client_api.models import Map

@@ -1,5 +1,4 @@
 import pytest
-import requests.exceptions
 
 from client_api.teams import Teams
 from client_api.models import Team, TeamWithPlayers, Player
@@ -14,7 +13,6 @@ MOCK_TEAM_WITH_PLAYERS_DATA = {
     "players": [PLAYER_1, PLAYER_2]
 }
 MOCK_TEAM_PLAYERS_RESPONSE_DATA = [MOCK_TEAM_WITH_PLAYERS_DATA]
-
 
 
 def test_list_teams_success(mock_session, mocker):

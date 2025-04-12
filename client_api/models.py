@@ -8,6 +8,7 @@ class Sport(BaseModel):
     name: str
     slug: str
 
+
 class Player(BaseModel):
     playerId: int
     name: str
@@ -22,6 +23,7 @@ class Player(BaseModel):
     role: Optional[str] = None
     slug: str
 
+
 class Team(BaseModel):
     teamId: int
     name: str
@@ -31,8 +33,10 @@ class Team(BaseModel):
     location: Optional[str] = None
     modifiedAt: datetime
 
+
 class TeamWithPlayers(Team):
     players: List[Player]
+
 
 class Map(BaseModel):
     mapId: int
@@ -45,11 +49,13 @@ class TradingCategory(BaseModel):
     name: str
     sportId: int
 
+
 class TradingTournament(BaseModel):
     id: int
     name: str
     sportId: int
     tradingCategoryId: Optional[int] = None
+
 
 class TradingOutcome(BaseModel):
     id: int
@@ -61,6 +67,7 @@ class TradingOutcome(BaseModel):
     price: float
     probability: float
 
+
 class TradingMarket(BaseModel):
     id: int
     status: str
@@ -71,6 +78,7 @@ class TradingMarket(BaseModel):
     marketKey: Literal["H2H", "UnderOver"]
     value: Optional[float] = None
     outcomes: List[TradingOutcome]
+
 
 class TradingEvent(BaseModel):
     id: int
@@ -95,8 +103,7 @@ class ChangeLog(BaseModel):
     data: Dict[str, Any]
     action: Literal["CREATE", "UPDATE", "DELETE"]
 
+
 class SignInResponse(BaseModel):
     access_token: str = Field(alias="AccessToken")
     expires_in: int = Field(alias="ExpiresIn")
-
-

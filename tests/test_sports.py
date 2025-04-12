@@ -8,6 +8,7 @@ from conftest import create_mock_response, SPORT_1, SPORT_2
 
 MOCK_SPORT_LIST_DATA = [SPORT_1, SPORT_2]
 
+
 def test_list_sports_success(mock_session, mocker):
     """Test successfully listing sports with mock data."""
     session, mock_request = mock_session
@@ -67,5 +68,5 @@ def test_list_sports_auth_error(mock_session, mocker):
 
     sports_resource = Sports(session)
 
-    with pytest.raises(AuthenticationError) as excinfo:
+    with pytest.raises(AuthenticationError):
         sports_resource.list_sports()

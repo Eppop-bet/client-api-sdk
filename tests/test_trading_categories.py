@@ -10,7 +10,6 @@ from conftest import create_mock_response, CATEGORY_1, CATEGORY_2, CATEGORY_3
 MOCK_CATEGORY_LIST_DATA = [CATEGORY_1, CATEGORY_2, CATEGORY_3]
 
 
-
 def test_list_trading_categories_success(mock_session, mocker):
     session, mock_request = mock_session
 

@@ -1,5 +1,4 @@
 import pytest
-import requests.exceptions
 
 from client_api.trading_tournaments import TradingTournaments
 from client_api.models import TradingTournament
@@ -8,7 +7,6 @@ from client_api.session import AuthenticationError, EsourceCommunicationError
 from conftest import create_mock_response, TOURNAMENT_1, TOURNAMENT_2, TOURNAMENT_3
 
 MOCK_TOURNAMENT_LIST_DATA = [TOURNAMENT_1, TOURNAMENT_2, TOURNAMENT_3]
-
 
 
 def test_list_trading_tournaments_success(mock_session, mocker):
@@ -91,5 +89,3 @@ def test_list_trading_tournaments_auth_error(mock_session, mocker):
 
     with pytest.raises(AuthenticationError):
         tournaments_resource.list_trading_tournaments()
-
-

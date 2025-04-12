@@ -23,4 +23,3 @@ def test_get_sport_by_id():
     assert response.id == 3
     assert response.slug == "cs-go"
     assert response.name == "Counter-Strike"
-

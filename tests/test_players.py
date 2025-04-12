@@ -7,7 +7,6 @@ from client_api.models import Player
 from conftest import create_mock_response, PLAYER_1, PLAYER_2
 
 
-
 MOCK_PLAYER_LIST_DATA = [PLAYER_1, PLAYER_2]
 
 
@@ -48,7 +47,6 @@ def test_get_player_success(mock_session, mocker):
     assert result_player.name == "Mock Player One"
 
 
-
 def test_get_player_not_found(mock_session, mocker):
     """Test handling of a 404 error when getting a player."""
     session, mock_request = mock_session
@@ -67,7 +65,7 @@ def test_get_player_not_found(mock_session, mocker):
 
 def test_list_players_auth_error(mock_session, mocker):
     """Test handling of a 401 error when listing players."""
-    session, mock_request = mock_session # Fixture from conftest
+    session, mock_request = mock_session
 
     mock_api_resp = create_mock_response(mocker, 401, text_data="Unauthorized")
     mock_request.return_value = mock_api_resp

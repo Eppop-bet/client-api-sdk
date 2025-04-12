@@ -227,4 +227,3 @@ class Session:
     def delete(self, path, **kwargs):
         """Sends a DELETE request."""
         return self._request("DELETE", path, **kwargs)
-    
