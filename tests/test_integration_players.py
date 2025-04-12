@@ -37,7 +37,7 @@ def test_players_list_take():
         assert isinstance(response, list)
         assert len(response) <= num_to_take
         if response:
-             assert all(isinstance(p, Player) for p in response)
+            assert all(isinstance(p, Player) for p in response)
 
     except AuthenticationError as e:
         pytest.fail(f"Authentication failed during test setup: {e}")
@@ -61,13 +61,12 @@ def test_players_list_skip():
 
         second_player_list = players_resource.list_players(skip=1, take=1)
         if not second_player_list:
-             pytest.skip("Cannot test skip: Not enough players returned (need at least 2).")
+            pytest.skip("Cannot test skip: Not enough players returned (need at least 2).")
 
         second_player_id = second_player_list[0].playerId
 
         assert first_player_id != second_player_id
         assert isinstance(second_player_list[0], Player)
-
 
     except AuthenticationError as e:
         pytest.fail(f"Authentication failed during test setup: {e}")
@@ -75,6 +74,7 @@ def test_players_list_skip():
         pytest.fail(f"API communication error during test: {e}")
     except Exception as e:
         pytest.fail(f"An unexpected error occurred: {e}")
+
 
 def test_players_list_search():
     """Tests the 'search' query parameter filters results by name."""
@@ -102,6 +102,7 @@ def test_players_list_search():
     except Exception as e:
         pytest.fail(f"An unexpected error occurred: {e}")
 
+
 def test_players_list_orderby_id_asc():
     """Tests ordering players by playerId ascending."""
     try:
@@ -116,7 +117,7 @@ def test_players_list_orderby_id_asc():
         assert all(isinstance(p, Player) for p in response)
 
         player_ids = [player.playerId for player in response]
-        assert all(player_ids[i] <= player_ids[i+1] for i in range(len(player_ids)-1)), \
+        assert all(player_ids[i] <= player_ids[i + 1] for i in range(len(player_ids) - 1)), \
             f"List not sorted ascending by playerId: {id}"
 
     except AuthenticationError as e:
@@ -125,6 +126,7 @@ def test_players_list_orderby_id_asc():
         pytest.fail(f"API communication error during test: {e}")
     except Exception as e:
         pytest.fail(f"An unexpected error occurred: {e}")
+
 
 def test_players_list_orderby_id_desc():
     """Tests ordering players by playerId descending."""
@@ -140,7 +142,7 @@ def test_players_list_orderby_id_desc():
         assert all(isinstance(p, Player) for p in response)
 
         player_ids = [player.playerId for player in response]
-        assert all(player_ids[i] >= player_ids[i+1] for i in range(len(player_ids)-1)), \
+        assert all(player_ids[i] >= player_ids[i + 1] for i in range(len(player_ids) - 1)), \
             f"List not sorted descending by playerId: {player_ids}"
 
     except AuthenticationError as e:
