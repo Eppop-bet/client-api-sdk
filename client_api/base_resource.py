@@ -22,8 +22,7 @@ class BaseResource:
             params (dict): The dictionary to add parameters to.
             skip (int, optional): Number of records to skip.
             take (int, optional): Number of records to retrieve.
-            order_by (dict, optional): Sorting order. Example: {"name": "asc"}.
-                                       Requests library handles encoding (e.g., orderBy[name]=asc).
+            order_by (dict, optional): Sorting order. Example: {"playerId": "desc"}.
             search (str, optional): Search term.
 
         Returns:
@@ -33,8 +32,10 @@ class BaseResource:
             params["skip"] = skip
         if take is not None:
             params["take"] = take
-        if order_by:
-            params["orderBy"] = order_by
+        if order_by and isinstance(order_by, dict):
+            field, direction = next(iter(order_by.items()))
+            params["orderBy"] = field
+            params["orderDir"] = direction.lower() if direction.lower() in ["asc", "desc"] else "asc"
         if search:
             params["search"] = search
         return params
