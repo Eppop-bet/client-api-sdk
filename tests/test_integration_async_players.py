@@ -1,38 +1,48 @@
 import pytest
 
-from sync.session import Session, AuthenticationError, EsourceCommunicationError
-from sync.players import Players
+from async_.session import AsyncSession, AuthenticationError, EsourceCommunicationError
+from async_.players import Players
 from models.models import Player
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 
-def test_get_all_players():
-    session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
+@pytest.mark.asyncio
+@pytest.mark.integration
+async def test_get_all_players():
+    session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
+    await session.login()
+
     players = Players(session)
 
-    response = players.list_players()
+    response = await players.list_players()
 
     assert isinstance(response, list)
     assert all(isinstance(player, Player) for player in response)
 
 
-def test_get_player_by_id():
-    session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
+@pytest.mark.asyncio
+@pytest.mark.integration
+async def test_get_player_by_id():
+    session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
+    await session.login()
+
     player = Players(session)
 
-    response = player.get_player(17497)
+    response = await player.get_player(17497)
 
     assert response.player_id == 17497
     assert response.first_name == "Gabriel"
 
 
-def test_players_list_take():
+async def test_players_list_take():
     """Tests the 'take' query parameter limits results."""
     num_to_take = 2
     try:
-        session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        await session.login()
+
         players_resource = Players(session)
-        response = players_resource.list_players(take=num_to_take)
+        response = await players_resource.list_players(take=num_to_take)
 
         assert isinstance(response, list)
         assert len(response) <= num_to_take
@@ -47,19 +57,21 @@ def test_players_list_take():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
-def test_players_list_skip():
+async def test_players_list_skip():
     """Tests the 'skip' query parameter offsets results."""
     try:
-        session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        await session.login()
+
         players_resource = Players(session)
 
-        first_player_list = players_resource.list_players(take=1)
+        first_player_list = await players_resource.list_players(take=1)
         if not first_player_list:
             pytest.skip("Cannot test skip: No players returned.")
 
         first_player_id = first_player_list[0].player_id
 
-        second_player_list = players_resource.list_players(skip=1, take=1)
+        second_player_list = await players_resource.list_players(skip=1, take=1)
         if not second_player_list:
             pytest.skip("Cannot test skip: Not enough players returned (need at least 2).")
 
@@ -76,14 +88,16 @@ def test_players_list_skip():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
-def test_players_list_search():
+async def test_players_list_search():
     """Tests the 'search' query parameter filters results by name."""
     search_term = "Gabriel"
 
     try:
-        session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        await session.login()
+
         players_resource = Players(session)
-        response = players_resource.list_players(search=search_term, take=10)
+        response = await players_resource.list_players(search=search_term, take=10)
 
         assert isinstance(response, list)
 
@@ -103,12 +117,14 @@ def test_players_list_search():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
-def test_players_list_orderby_id_asc():
+async def test_players_list_orderby_id_asc():
     """Tests ordering players by player_id ascending."""
     try:
-        session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        await session.login()
+
         players_resource = Players(session)
-        response = players_resource.list_players(order_by={"playerId": "asc"}, take=10)
+        response = await players_resource.list_players(order_by={"playerId": "asc"}, take=10)
 
         assert isinstance(response, list)
         if len(response) < 2:
@@ -128,12 +144,14 @@ def test_players_list_orderby_id_asc():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
-def test_players_list_orderby_id_desc():
+async def test_players_list_orderby_id_desc():
     """Tests ordering players by player_id descending."""
     try:
-        session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
+        await session.login()
+
         players_resource = Players(session)
-        response = players_resource.list_players(order_by={"playerId": "desc"}, take=10)
+        response = await players_resource.list_players(order_by={"playerId": "desc"}, take=10)
 
         assert isinstance(response, list)
         if len(response) < 2:

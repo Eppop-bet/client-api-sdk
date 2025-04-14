@@ -1,7 +1,7 @@
 from typing import List
 
 from .base_resource import BaseResource
-from .models import Sport
+from models.models import Sport
 
 
 class Sports(BaseResource):

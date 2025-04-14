@@ -1,7 +1,7 @@
 from typing import List
 
 from .base_resource import BaseResource
-from .models import Team, TeamWithPlayers
+from models.models import Team, TeamWithPlayers
 
 
 class Teams(BaseResource):

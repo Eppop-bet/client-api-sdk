@@ -1,7 +1,7 @@
 from typing import List
 
 from .base_resource import BaseResource
-from .models import TradingEvent
+from models.models import TradingEvent
 
 
 class TradingEvents(BaseResource):

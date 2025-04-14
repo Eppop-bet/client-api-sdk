@@ -1,8 +1,8 @@
 import pytest
 
-from client_api.teams import Teams
-from client_api.models import Team, TeamWithPlayers, Player
-from client_api.session import AuthenticationError, EsourceCommunicationError
+from sync.teams import Teams
+from models.models import Team, TeamWithPlayers, Player
+from sync.session import AuthenticationError, EsourceCommunicationError
 
 from conftest import create_mock_response, TEAM_1, TEAM_2, PLAYER_1, PLAYER_2
 

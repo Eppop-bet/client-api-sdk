@@ -1,6 +1,6 @@
-from client_api.session import Session
-from client_api.sports import Sports
-from client_api.models import Sport
+from sync.session import Session
+from sync.sports import Sports
+from models.models import Sport
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 

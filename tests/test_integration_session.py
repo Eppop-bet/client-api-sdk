@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime, timezone
-from client_api.session import Session, AuthenticationError
+from sync.session import Session, AuthenticationError
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 

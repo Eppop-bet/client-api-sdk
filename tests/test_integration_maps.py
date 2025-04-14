@@ -1,8 +1,9 @@
 import pytest
 
-from client_api.session import Session
-from client_api.maps import Maps
-from client_api.models import Map
+from sync.session import Session
+from sync.maps import Maps
+from sync.client import SyncClient
+from models.models import Map
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 
@@ -12,6 +13,16 @@ def test_get_all_maps():
     maps = Maps(session)
 
     response = maps.list_maps()
+
+    assert isinstance(response, list)
+    assert (all(isinstance(maps, Map) for maps in response))
+
+
+@pytest.mark.integration
+def test_get_all_maps_using_client():
+    client = SyncClient(API_URL, TEST_EMAIL, TEST_PASSWORD)
+
+    response = client.maps.list_maps()
 
     assert isinstance(response, list)
     assert (all(isinstance(maps, Map) for maps in response))

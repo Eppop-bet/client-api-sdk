@@ -1,8 +1,8 @@
 import pytest
 
-from client_api.trading_categories import TradingCategories
-from client_api.models import TradingCategory
-from client_api.session import AuthenticationError, EsourceCommunicationError
+from sync.trading_categories import TradingCategories
+from models.models import TradingCategory
+from sync.session import AuthenticationError, EsourceCommunicationError
 
 from conftest import create_mock_response, CATEGORY_1, CATEGORY_2, CATEGORY_3
 

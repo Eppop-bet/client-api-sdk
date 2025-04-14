@@ -1,8 +1,8 @@
 import pytest
 
-from client_api.maps import Maps
-from client_api.models import Map
-from client_api.session import AuthenticationError, EsourceCommunicationError
+from sync.maps import Maps
+from models.models import Map
+from sync.session import AuthenticationError, EsourceCommunicationError
 
 from conftest import create_mock_response, MAP_1, MAP_2
 

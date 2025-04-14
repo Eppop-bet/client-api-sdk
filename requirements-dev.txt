@@ -2,3 +2,4 @@ flake8==7.2.0
 pytest==8.3.5
 pytest-mock==3.14.0
 python-dotenv==1.1.0
+pytest-asyncio

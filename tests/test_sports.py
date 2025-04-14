@@ -1,8 +1,8 @@
 import pytest
 
-from client_api.session import AuthenticationError, EsourceCommunicationError
-from client_api.sports import Sports
-from client_api.models import Sport
+from sync.session import AuthenticationError, EsourceCommunicationError
+from sync.sports import Sports
+from models.models import Sport
 from conftest import create_mock_response, SPORT_1, SPORT_2
 
 

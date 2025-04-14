@@ -2,20 +2,10 @@ import requests
 from datetime import datetime, timedelta, timezone
 import logging
 
-from client_api.models import SignInResponse
+from models.models import SignInResponse
+from models.errors import AuthenticationError, EsourceCommunicationError
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-
-class AuthenticationError(Exception):
-    """Custom exception for authentication failures."""
-    pass
-
-
-class EsourceCommunicationError(Exception):
-    """Custom exception for API communication errors."""
-    pass
 
 
 class Session:

@@ -1,7 +1,7 @@
 from typing import List
 
 from .base_resource import BaseResource
-from .models import TradingCategory
+from models.models import TradingCategory
 
 
 class TradingCategories(BaseResource):

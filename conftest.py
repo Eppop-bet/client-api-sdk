@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
 import os
 
-from client_api.session import Session
+from sync.session import Session
 
 load_dotenv()
 

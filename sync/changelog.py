@@ -1,7 +1,7 @@
 from typing import List
 
 from .base_resource import BaseResource
-from .models import ChangeLog
+from models.models import ChangeLog
 
 
 class Changelog(BaseResource):

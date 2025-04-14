@@ -67,6 +67,7 @@ class TradingOutcome(BaseModel):
     price: float
     probability: float
 
+
 class TradingMarket(BaseModel):
     id: int
     status: str
@@ -101,6 +102,7 @@ class ChangeLog(BaseModel):
     added_at: datetime = Field(alias="addedAt")
     data: Dict[str, Any]
     action: Literal["CREATE", "UPDATE", "DELETE"]
+
 
 class SignInResponse(BaseModel):
     access_token: str = Field(alias="AccessToken")

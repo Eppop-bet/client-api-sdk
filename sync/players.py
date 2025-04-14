@@ -1,7 +1,7 @@
 from typing import List
 
 from .base_resource import BaseResource
-from .models import Player
+from models.models import Player
 
 
 class Players(BaseResource):
