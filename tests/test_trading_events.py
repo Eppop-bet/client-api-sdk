@@ -31,17 +31,17 @@ def test_list_trading_events_success(mock_session, mocker):
     assert isinstance(result_events[0].sport, Sport)
     assert result_events[0].sport.slug == "cs-go"
 
-    assert isinstance(result_events[0].tradingMarkets, list)
-    assert len(result_events[0].tradingMarkets) == 1
-    assert isinstance(result_events[0].tradingMarkets[0], TradingMarket)
-    assert result_events[0].tradingMarkets[0].marketKey == "H2H"
-    assert isinstance(result_events[0].tradingMarkets[0].outcomes, list)
-    assert len(result_events[0].tradingMarkets[0].outcomes) == 2
-    assert isinstance(result_events[0].tradingMarkets[0].outcomes[0], TradingOutcome)
-    assert result_events[0].tradingMarkets[0].outcomes[0].price == 1.85
+    assert isinstance(result_events[0].trading_markets, list)
+    assert len(result_events[0].trading_markets) == 1
+    assert isinstance(result_events[0].trading_markets[0], TradingMarket)
+    assert result_events[0].trading_markets[0].market_key == "H2H"
+    assert isinstance(result_events[0].trading_markets[0].outcomes, list)
+    assert len(result_events[0].trading_markets[0].outcomes) == 2
+    assert isinstance(result_events[0].trading_markets[0].outcomes[0], TradingOutcome)
+    assert result_events[0].trading_markets[0].outcomes[0].price == 1.85
 
-    assert isinstance(result_events[1].tradingMarkets, list)
-    assert len(result_events[1].tradingMarkets) == 0
+    assert isinstance(result_events[1].trading_markets, list)
+    assert len(result_events[1].trading_markets) == 0
 
 
 def test_list_trading_events_with_filters_success(mock_session, mocker):
@@ -80,14 +80,14 @@ def test_get_trading_event_success(mock_session, mocker):
     assert result_event.id == event_id_to_get
     assert result_event.name == "Team A vs Team B - Grand Final"
     assert result_event.status == "Open"
-    assert result_event.beginAt == datetime(2025, 5, 1, 18, 0, 0, tzinfo=timezone.utc)
+    assert result_event.begin_at == datetime(2025, 5, 1, 18, 0, 0, tzinfo=timezone.utc)
     assert isinstance(result_event.sport, Sport)
     assert result_event.sport.id == 3
-    assert isinstance(result_event.tradingMarkets, list)
-    assert len(result_event.tradingMarkets) == 1
-    assert isinstance(result_event.tradingMarkets[0], TradingMarket)
-    assert len(result_event.tradingMarkets[0].outcomes) == 2
-    assert isinstance(result_event.tradingMarkets[0].outcomes[0], TradingOutcome)
+    assert isinstance(result_event.trading_markets, list)
+    assert len(result_event.trading_markets) == 1
+    assert isinstance(result_event.trading_markets[0], TradingMarket)
+    assert len(result_event.trading_markets[0].outcomes) == 2
+    assert isinstance(result_event.trading_markets[0].outcomes[0], TradingOutcome)
 
 
 def test_get_trading_event_not_found(mock_session, mocker):

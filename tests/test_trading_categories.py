@@ -25,7 +25,7 @@ def test_list_trading_categories_success(mock_session, mocker):
     assert result_categories[0].id == 10
     assert result_categories[0].name == "Premier League"
     assert result_categories[1].id == 11
-    assert result_categories[1].sportId == 3
+    assert result_categories[1].sport_id == 3
 
 
 def test_list_trading_categories_with_filters_success(mock_session, mocker):
@@ -61,7 +61,7 @@ def test_get_trading_category_success(mock_session, mocker):
     assert isinstance(result_category, TradingCategory)
     assert result_category.id == category_id_to_get
     assert result_category.name == "Premier League"
-    assert result_category.sportId == 3
+    assert result_category.sport_id == 3
 
 
 def test_get_trading_category_not_found(mock_session, mocker):

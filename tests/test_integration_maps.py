@@ -24,7 +24,7 @@ def test_get_map_by_id():
 
     response = maps.get_map(3)
 
-    assert response.mapId == 3
+    assert response.map_id == 3
     assert response.slug == "train"
     assert response.name == "Train"
 
@@ -36,6 +36,6 @@ def test_get_map_by_name():
     response = maps.list_maps(search="Train")
 
     assert isinstance(response, list)
-    assert response[0].mapId == 3
+    assert response[0].map_id == 3
     assert response[0].slug == "train"
     assert response[0].name == "Train"

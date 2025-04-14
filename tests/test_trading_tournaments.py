@@ -24,7 +24,7 @@ def test_list_trading_tournaments_success(mock_session, mocker):
     assert result_tournaments[0].id == 301
     assert result_tournaments[0].name == "Major Championship"
     assert result_tournaments[1].id == 302
-    assert result_tournaments[1].tradingCategoryId is None
+    assert result_tournaments[1].trading_category_id is None
 
 
 def test_list_trading_tournaments_with_filters_success(mock_session, mocker):
@@ -61,8 +61,8 @@ def test_get_trading_tournament_success(mock_session, mocker):
     assert isinstance(result_tournament, TradingTournament)
     assert result_tournament.id == tournament_id_to_get
     assert result_tournament.name == "Major Championship"
-    assert result_tournament.sportId == 1
-    assert result_tournament.tradingCategoryId == 10
+    assert result_tournament.sport_id == 1
+    assert result_tournament.trading_category_id == 10
 
 
 def test_get_trading_tournament_not_found(mock_session, mocker):

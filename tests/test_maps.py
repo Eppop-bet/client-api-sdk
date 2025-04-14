@@ -21,9 +21,9 @@ def test_list_maps_success(mock_session, mocker):
     assert isinstance(result_maps, list)
     assert len(result_maps) == 2
     assert all(isinstance(m, Map) for m in result_maps)
-    assert result_maps[0].mapId == 1
+    assert result_maps[0].map_id == 1
     assert result_maps[0].name == "Mirage"
-    assert result_maps[1].mapId == 3
+    assert result_maps[1].map_id == 3
     assert result_maps[1].slug == "train"
 
 
@@ -53,7 +53,7 @@ def test_get_map_success(mock_session, mocker):
     result_map = maps_resource.get_map(map_id_to_get)
 
     assert isinstance(result_map, Map)
-    assert result_map.mapId == map_id_to_get
+    assert result_map.map_id == map_id_to_get
     assert result_map.name == "Mirage"
     assert result_map.slug == "mirage"
 

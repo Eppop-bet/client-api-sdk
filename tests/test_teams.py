@@ -27,9 +27,9 @@ def test_list_teams_success(mock_session, mocker):
     assert isinstance(result_teams, list)
     assert len(result_teams) == 2
     assert all(isinstance(t, Team) for t in result_teams)
-    assert result_teams[0].teamId == 201
+    assert result_teams[0].team_id == 201
     assert result_teams[0].name == "Alpha Team"
-    assert result_teams[1].teamId == 202
+    assert result_teams[1].team_id == 202
     assert result_teams[1].acronym == "BT"
 
 
@@ -59,7 +59,7 @@ def test_get_team_success(mock_session, mocker):
     result_team = teams_resource.get_team(team_id_to_get)
 
     assert isinstance(result_team, Team)
-    assert result_team.teamId == team_id_to_get
+    assert result_team.team_id == team_id_to_get
     assert result_team.name == "Alpha Team"
     assert result_team.location == "West"
 
@@ -93,13 +93,13 @@ def test_get_team_players_success(mock_session, mocker):
     result_team_with_players = result_team_players_list[0]
 
     assert isinstance(result_team_with_players, TeamWithPlayers)
-    assert result_team_with_players.teamId == team_id_to_get
+    assert result_team_with_players.team_id == team_id_to_get
     assert result_team_with_players.name == "Alpha Team"
 
     assert isinstance(result_team_with_players.players, list)
     assert len(result_team_with_players.players) == 2
     assert all(isinstance(p, Player) for p in result_team_with_players.players)
-    assert result_team_with_players.players[0].playerId == 101
+    assert result_team_with_players.players[0].player_id == 101
     assert result_team_with_players.players[1].name == "Mock Player Two"
 
 

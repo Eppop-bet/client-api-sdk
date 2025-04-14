@@ -23,12 +23,12 @@ def test_list_players_success(mock_session, mocker):
 
     assert isinstance(result_players, list)
     assert len(result_players) == 2
-    assert result_players[0].playerId == 101
-    assert result_players[1].playerId == 102
+    assert result_players[0].player_id == 101
+    assert result_players[1].player_id == 102
     assert result_players[0].name == "Mock Player One"
     assert result_players[0].active is True
     assert result_players[1].active is False
-    assert result_players[0].modifiedAt == datetime(2023, 10, 26, 10, 0, 0, tzinfo=timezone.utc)
+    assert result_players[0].modified_at == datetime(2023, 10, 26, 10, 0, 0, tzinfo=timezone.utc)
 
 
 def test_get_player_success(mock_session, mocker):
@@ -43,7 +43,7 @@ def test_get_player_success(mock_session, mocker):
     result_player = players_resource.get_player(player_id_to_get)
 
     assert isinstance(result_player, Player)
-    assert result_player.playerId == player_id_to_get
+    assert result_player.player_id == player_id_to_get
     assert result_player.name == "Mock Player One"
 
 

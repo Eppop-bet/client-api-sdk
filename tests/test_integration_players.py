@@ -22,8 +22,8 @@ def test_get_player_by_id():
 
     response = player.get_player(17497)
 
-    assert response.playerId == 17497
-    assert response.firstName == "Gabriel"
+    assert response.player_id == 17497
+    assert response.first_name == "Gabriel"
 
 
 def test_players_list_take():
@@ -57,13 +57,13 @@ def test_players_list_skip():
         if not first_player_list:
             pytest.skip("Cannot test skip: No players returned.")
 
-        first_player_id = first_player_list[0].playerId
+        first_player_id = first_player_list[0].player_id
 
         second_player_list = players_resource.list_players(skip=1, take=1)
         if not second_player_list:
             pytest.skip("Cannot test skip: Not enough players returned (need at least 2).")
 
-        second_player_id = second_player_list[0].playerId
+        second_player_id = second_player_list[0].player_id
 
         assert first_player_id != second_player_id
         assert isinstance(second_player_list[0], Player)
@@ -93,7 +93,7 @@ def test_players_list_search():
             assert all(isinstance(p, Player) for p in response)
             for player in response:
                 assert search_term.lower() in player.name.lower(), \
-                    f"Player '{player.name}' (ID: {player.playerId}) found but doesn't match search '{search_term}'"
+                    f"Player '{player.name}' (ID: {player.player_id}) found but doesn't match search '{search_term}'"
 
     except AuthenticationError as e:
         pytest.fail(f"Authentication failed during test setup: {e}")
@@ -104,7 +104,7 @@ def test_players_list_search():
 
 
 def test_players_list_orderby_id_asc():
-    """Tests ordering players by playerId ascending."""
+    """Tests ordering players by player_id ascending."""
     try:
         session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
         players_resource = Players(session)
@@ -116,9 +116,9 @@ def test_players_list_orderby_id_asc():
 
         assert all(isinstance(p, Player) for p in response)
 
-        player_ids = [player.playerId for player in response]
+        player_ids = [player.player_id for player in response]
         assert all(player_ids[i] <= player_ids[i + 1] for i in range(len(player_ids) - 1)), \
-            f"List not sorted ascending by playerId: {id}"
+            f"List not sorted ascending by player_id: {id}"
 
     except AuthenticationError as e:
         pytest.fail(f"Authentication failed during test setup: {e}")
@@ -129,7 +129,7 @@ def test_players_list_orderby_id_asc():
 
 
 def test_players_list_orderby_id_desc():
-    """Tests ordering players by playerId descending."""
+    """Tests ordering players by player_id descending."""
     try:
         session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
         players_resource = Players(session)
@@ -141,9 +141,9 @@ def test_players_list_orderby_id_desc():
 
         assert all(isinstance(p, Player) for p in response)
 
-        player_ids = [player.playerId for player in response]
+        player_ids = [player.player_id for player in response]
         assert all(player_ids[i] >= player_ids[i + 1] for i in range(len(player_ids) - 1)), \
-            f"List not sorted descending by playerId: {player_ids}"
+            f"List not sorted descending by player_id: {player_ids}"
 
     except AuthenticationError as e:
         pytest.fail(f"Authentication failed during test setup: {e}")
