@@ -1,14 +1,10 @@
-from unittest.mock import AsyncMock
-
 import pytest
-import pytest_asyncio
 import requests
 from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
 import os
 
 from sync.session import Session
-from async_.session import AsyncSession
 
 load_dotenv()
 
@@ -81,38 +77,6 @@ def mock_session(mocker):
     session.session.headers["Authorization"] = session.token
 
     yield session, mock_request
-
-
-@pytest_asyncio.fixture
-async def mock_async_session(mocker):
-    """Fixture for a mocked asynchronous AsyncSession."""
-    mock_internal_request = AsyncMock()
-
-    login_response_data = {
-        "AccessToken": "mock-conftest-token-123",
-        "ExpiresIn": 3600
-    }
-
-    async def request_side_effect(method, path, *args, **kwargs):
-        if method == "POST" and path == "/auth/sign-in":
-            return login_response_data
-        return None
-
-    mock_internal_request.side_effect = request_side_effect
-
-    with mocker.patch('async_.session.AsyncSession._request', new=mock_internal_request):
-        session = AsyncSession(base_url="http://mock-api.test/api")
-        await session.login(email="mock@user.com", password="mockpassword")
-
-    session._request = mock_internal_request
-
-    assert session.token == login_response_data["AccessToken"]
-    assert session._token_expiration_time is not None
-
-    mock_internal_request.reset_mock()
-    mock_internal_request.side_effect = None
-
-    yield session, mock_internal_request
 
 
 MOCK_BASE_URL = "http://mock-api.test/api"

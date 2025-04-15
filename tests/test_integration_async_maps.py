@@ -1,5 +1,6 @@
 import pytest
 
+from async_.client import AsyncClient
 from async_.session import AsyncSession
 from async_.maps import Maps
 from models.models import Map
@@ -17,6 +18,18 @@ async def test_ascync_get_all_maps():
 
         assert isinstance(response, list)
         assert (all(isinstance(maps, Map) for maps in response))
+
+
+@pytest.mark.asyncio
+@pytest.mark.integration
+async def test_get_all_maps_using_client():
+    client = AsyncClient(API_URL, TEST_EMAIL, TEST_PASSWORD)
+    await client.login()
+
+    response = await client.maps.list_maps()
+
+    assert isinstance(response, list)
+    assert (all(isinstance(maps, Map) for maps in response))
 
 
 @pytest.mark.asyncio
