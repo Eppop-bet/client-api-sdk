@@ -4,6 +4,7 @@ from sync.session import Session, AuthenticationError
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 
+@pytest.mark.integration
 def test_real_login_sets_token_and_expiration():
     """Tests successful login sets token and expiration time."""
     session = Session(API_URL, email=TEST_EMAIL, password=TEST_PASSWORD)
@@ -15,6 +16,7 @@ def test_real_login_sets_token_and_expiration():
     assert session.session.headers.get("Authorization") == session.token
 
 
+@pytest.mark.integration
 def test_login_failure_raises_exception():
     """Tests that login with invalid credentials raises AuthenticationError."""
     with pytest.raises(AuthenticationError):

@@ -9,39 +9,39 @@ from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 @pytest.mark.asyncio
 @pytest.mark.integration
 async def test_ascync_get_all_maps():
-    session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
-    await session.login()
-    maps = Maps(session)
+    async with AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD) as session:
+        await session.login()
+        maps = Maps(session)
 
-    response = await maps.list_maps()
+        response = await maps.list_maps()
 
-    assert isinstance(response, list)
-    assert (all(isinstance(maps, Map) for maps in response))
+        assert isinstance(response, list)
+        assert (all(isinstance(maps, Map) for maps in response))
 
 
 @pytest.mark.asyncio
 @pytest.mark.integration
 async def test_async_get_map_by_id():
-    session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
-    await session.login()
-    maps = Maps(session)
+    async with AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD) as session:
+        await session.login()
+        maps = Maps(session)
 
-    response = await maps.get_map(3)
+        response = await maps.get_map(3)
 
-    assert response.map_id == 3
-    assert response.slug == "train"
-    assert response.name == "Train"
+        assert response.map_id == 3
+        assert response.slug == "train"
+        assert response.name == "Train"
 
 
 @pytest.mark.asyncio
 @pytest.mark.integration
 async def test_async_get_map_by_name():
-    session = AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD)
-    await session.login()
-    maps = Maps(session)
-    response = await maps.list_maps(search="Train")
+    async with AsyncSession(API_URL, TEST_EMAIL, TEST_PASSWORD) as session:
+        await session.login()
+        maps = Maps(session)
+        response = await maps.list_maps(search="Train")
 
-    assert isinstance(response, list)
-    assert response[0].map_id == 3
-    assert response[0].slug == "train"
-    assert response[0].name == "Train"
+        assert isinstance(response, list)
+        assert response[0].map_id == 3
+        assert response[0].slug == "train"
+        assert response[0].name == "Train"

@@ -6,6 +6,7 @@ from models.models import Player
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 
+@pytest.mark.integration
 def test_get_all_players():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     players = Players(session)
@@ -16,6 +17,7 @@ def test_get_all_players():
     assert all(isinstance(player, Player) for player in response)
 
 
+@pytest.mark.integration
 def test_get_player_by_id():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     player = Players(session)
@@ -26,6 +28,7 @@ def test_get_player_by_id():
     assert response.first_name == "Gabriel"
 
 
+@pytest.mark.integration
 def test_players_list_take():
     """Tests the 'take' query parameter limits results."""
     num_to_take = 2
@@ -47,6 +50,7 @@ def test_players_list_take():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
+@pytest.mark.integration
 def test_players_list_skip():
     """Tests the 'skip' query parameter offsets results."""
     try:
@@ -76,6 +80,7 @@ def test_players_list_skip():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
+@pytest.mark.integration
 def test_players_list_search():
     """Tests the 'search' query parameter filters results by name."""
     search_term = "Gabriel"
@@ -103,6 +108,7 @@ def test_players_list_search():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
+@pytest.mark.integration
 def test_players_list_orderby_id_asc():
     """Tests ordering players by player_id ascending."""
     try:
@@ -128,6 +134,7 @@ def test_players_list_orderby_id_asc():
         pytest.fail(f"An unexpected error occurred: {e}")
 
 
+@pytest.mark.integration
 def test_players_list_orderby_id_desc():
     """Tests ordering players by player_id descending."""
     try:

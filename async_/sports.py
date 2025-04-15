@@ -1,17 +1,17 @@
 from typing import List
 
-from .base_resource import BaseResource
-from .session import Session
+from .base_resource import AsyncBaseResource
+from .session import AsyncSession
 from models.models import Sport
 
 
-class Sports(BaseResource):
+class Sports(AsyncBaseResource):
     """Handles operations related to the /sports endpoint."""
-    def __init__(self, session: Session):
+    def __init__(self, session: AsyncSession):
         super().__init__(session)
         self.base_url = "/sports"
 
-    def list_sports(self, skip=None, take=None, order_by=None, search=None) -> List[Sport]:
+    async def list_sports(self, skip=None, take=None, order_by=None, search=None) -> List[Sport]:
         """
         Fetches a list of sports with optional pagination, sorting, and search.
 
@@ -25,10 +25,10 @@ class Sports(BaseResource):
             list: A list of sport objects.
         """
         params = self._build_common_params({}, skip=skip, take=take, order_by=order_by, search=search)
-        data = self.session.get(self.base_url, params=params)
+        data = await self.session.get(self.base_url, params=params)
         return [Sport(**item) for item in data]
 
-    def get_sport(self, sport_id) -> Sport:
+    async def get_sport(self, sport_id) -> Sport:
         """
         Fetches a single sport by its ID.
 
@@ -38,5 +38,5 @@ class Sports(BaseResource):
         Returns:
             dict: The sport details.
         """
-        data = self.get(sport_id)
+        data = await self.get(sport_id)
         return Sport(**data)

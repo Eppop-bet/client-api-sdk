@@ -1,9 +1,11 @@
+import pytest
 from sync.session import Session
 from sync.sports import Sports
 from models.models import Sport
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 
+@pytest.mark.integration
 def test_get_all_sports():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     sports = Sports(session)
@@ -14,6 +16,7 @@ def test_get_all_sports():
     assert all(isinstance(sport, Sport) for sport in response)
 
 
+@pytest.mark.integration
 def test_get_sport_by_id():
     session = Session(API_URL, TEST_EMAIL, TEST_PASSWORD)
     sports = Sports(session)
