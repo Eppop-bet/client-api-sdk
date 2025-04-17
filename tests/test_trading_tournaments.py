@@ -1,8 +1,8 @@
 import pytest
 
-from sync.trading_tournaments import TradingTournaments
-from models.models import TradingTournament
-from sync.session import AuthenticationError, EsourceCommunicationError
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import TradingTournament
+from esource_client_api.sync.trading_tournaments import TradingTournaments
 
 from conftest import create_mock_response, TOURNAMENT_1, TOURNAMENT_2, TOURNAMENT_3
 

@@ -2,11 +2,11 @@ import httpx
 import pytest
 from datetime import datetime, timezone
 
-from models.errors import AuthenticationError, EsourceCommunicationError
-from async_.players import Players
-from async_.session import AsyncSession
-from models.models import Player
 from conftest import PLAYER_1, PLAYER_2, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
+from esource_client_api.async_.players import Players
+from esource_client_api.async_.session import AsyncSession
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Player
 
 MOCK_PLAYER_LIST_DATA = [PLAYER_1, PLAYER_2]
 

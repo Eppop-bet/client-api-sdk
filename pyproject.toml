@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "esource_client_api"
+version = "1.0.1"
+description = "Python SDK for the Esource.gg Client API"
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "MIT" }
+authors = [
+    { name = "Esource.gg", email = "info@esource.gg" }
+]
+dependencies = [
+    "requests>=2.30.0",
+    "pydantic>=2.0",
+    "httpx>=0.20.0"
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/Eppop-bet/client-api-sdk"
+Repository = "https://github.com/Eppop-bet/client-api-sdk"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests*"]

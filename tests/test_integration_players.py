@@ -1,9 +1,10 @@
 import pytest
 
-from sync.session import Session, AuthenticationError, EsourceCommunicationError
-from sync.players import Players
-from models.models import Player
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
+from esource_client_api.models.errors import AuthenticationError, EsourceCommunicationError
+from esource_client_api.models.models import Player
+from esource_client_api.sync.players import Players
+from esource_client_api.sync.session import Session
 
 
 @pytest.mark.integration

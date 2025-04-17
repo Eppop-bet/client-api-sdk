@@ -1,17 +1,17 @@
 from typing import List
 
-from .base_resource import BaseResource
-from .session import Session
-from models.models import TradingEvent
+from .base_resource import AsyncBaseResource
+from .session import AsyncSession
+from ..models.models import TradingEvent
 
 
-class TradingEvents(BaseResource):
+class TradingEvents(AsyncBaseResource):
     """Handles operations related to the /trading-events endpoint."""
-    def __init__(self, session: Session):
+    def __init__(self, session: AsyncSession):
         super().__init__(session)
         self.base_url = "/trading-events"
 
-    def list_trading_events(
+    async def list_trading_events(
             self,
             skip=None,
             take=None,
@@ -43,10 +43,10 @@ class TradingEvents(BaseResource):
 
         params = self._build_common_params(params, skip=skip, take=take, order_by=None, search=search)
 
-        data = self.session.get(self.base_url, params=params)
+        data = await self.session.get(self.base_url, params=params)
         return [TradingEvent(**item) for item in data]
 
-    def get_trading_event(self, event_id) -> TradingEvent:
+    async def get_trading_event(self, event_id) -> TradingEvent:
         """
         Fetches a single trading event by its ID.
 
@@ -56,5 +56,5 @@ class TradingEvents(BaseResource):
         Returns:
             dict: The trading event details, potentially including markets and outcomes.
         """
-        data = self.get(event_id)
+        data = await self.get(event_id)
         return TradingEvent(**data)

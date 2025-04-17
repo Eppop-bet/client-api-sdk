@@ -1,10 +1,9 @@
 import pytest
 
-from sync.session import AuthenticationError, EsourceCommunicationError
-from sync.sports import Sports
-from models.models import Sport
 from conftest import create_mock_response, SPORT_1, SPORT_2
-
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Sport
+from esource_client_api.sync.sports import Sports
 
 MOCK_SPORT_LIST_DATA = [SPORT_1, SPORT_2]
 

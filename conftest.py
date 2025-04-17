@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
 import os
 
-from sync.session import Session
+from esource_client_api.sync.session import Session
 
 load_dotenv()
 

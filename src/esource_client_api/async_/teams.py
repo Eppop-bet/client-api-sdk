@@ -2,7 +2,7 @@ from typing import List
 
 from .base_resource import AsyncBaseResource
 from .session import AsyncSession
-from models.models import Team, TeamWithPlayers
+from ..models.models import Team, TeamWithPlayers
 
 
 class Teams(AsyncBaseResource):

@@ -1,11 +1,11 @@
 import httpx
 import pytest
 
-from async_.trading_tournaments import TradingTournaments
-from async_.session import AsyncSession
+from esource_client_api.async_.trading_tournaments import TradingTournaments
+from esource_client_api.async_.session import AsyncSession
 from conftest import TOURNAMENT_1, TOURNAMENT_2, TOURNAMENT_3, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
-from models.models import TradingTournament
-from models.errors import AuthenticationError, EsourceCommunicationError
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import TradingTournament
 
 MOCK_TOURNAMENT_LIST_DATA = [TOURNAMENT_1, TOURNAMENT_2, TOURNAMENT_3]
 

@@ -2,11 +2,11 @@ import httpx
 import pytest
 from datetime import datetime, timezone
 
-from async_.trading_events import TradingEvents
-from async_.session import AsyncSession
+from esource_client_api.async_.trading_events import TradingEvents
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import TradingEvent, Sport, TradingMarket, TradingOutcome
+from esource_client_api.async_.session import AsyncSession
 from conftest import TRADING_EVENT_1, TRADING_EVENT_2, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
-from models.models import TradingEvent, TradingMarket, TradingOutcome, Sport
-from models.errors import AuthenticationError, EsourceCommunicationError
 
 MOCK_EVENT_LIST_DATA = [TRADING_EVENT_1, TRADING_EVENT_2]
 

@@ -1,11 +1,11 @@
 import httpx
 import pytest
 
-from async_.teams import Teams
-from async_.session import AsyncSession
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Team, TeamWithPlayers, Player
+from esource_client_api.async_.teams import Teams
+from esource_client_api.async_.session import AsyncSession
 from conftest import MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA, TEAM_1
-from models.models import Team, TeamWithPlayers, Player
-from models.errors import AuthenticationError, EsourceCommunicationError
 from tests.test_teams import MOCK_TEAM_WITH_PLAYERS_DATA, MOCK_TEAM_LIST_DATA
 
 MOCK_TEAM_PLAYERS_RESPONSE_DATA = [MOCK_TEAM_WITH_PLAYERS_DATA]

@@ -1,12 +1,12 @@
-from sync.changelog import Changelog
-from sync.maps import Maps
-from sync.players import Players
-from sync.session import Session
-from sync.sports import Sports
-from sync.teams import Teams
-from sync.trading_categories import TradingCategories
-from sync.trading_events import TradingEvents
-from sync.trading_tournaments import TradingTournaments
+from .changelog import Changelog
+from .maps import Maps
+from .players import Players
+from .session import Session
+from .sports import Sports
+from .teams import Teams
+from .trading_categories import TradingCategories
+from .trading_events import TradingEvents
+from .trading_tournaments import TradingTournaments
 
 
 class SyncClient:

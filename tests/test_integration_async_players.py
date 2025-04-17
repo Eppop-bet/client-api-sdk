@@ -1,9 +1,10 @@
 import pytest
 
-from async_.session import AsyncSession, AuthenticationError, EsourceCommunicationError
-from async_.players import Players
-from models.models import Player
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
+from esource_client_api.async_.players import Players
+from esource_client_api.async_.session import AsyncSession
+from esource_client_api.models.errors import AuthenticationError, EsourceCommunicationError
+from esource_client_api.models.models import Player
 
 
 @pytest.mark.asyncio

@@ -1,11 +1,10 @@
 import pytest
 
-from sync.trading_categories import TradingCategories
-from models.models import TradingCategory
-from sync.session import AuthenticationError, EsourceCommunicationError
 
 from conftest import create_mock_response, CATEGORY_1, CATEGORY_2, CATEGORY_3
-
+from esource_client_api.sync.trading_categories import TradingCategories
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import TradingCategory
 
 MOCK_CATEGORY_LIST_DATA = [CATEGORY_1, CATEGORY_2, CATEGORY_3]
 

@@ -1,11 +1,11 @@
 import httpx
 import pytest
 
-from async_.trading_categories import TradingCategories
-from async_.session import AsyncSession
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import TradingCategory
+from esource_client_api.async_.trading_categories import TradingCategories
+from esource_client_api.async_.session import AsyncSession
 from conftest import MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA, CATEGORY_1
-from models.models import TradingCategory
-from models.errors import AuthenticationError, EsourceCommunicationError
 from tests.test_trading_categories import MOCK_CATEGORY_LIST_DATA
 
 

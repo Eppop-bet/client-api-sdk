@@ -2,7 +2,7 @@ from typing import List
 
 from .base_resource import AsyncBaseResource
 from .session import AsyncSession
-from models.models import TradingCategory
+from ..models.models import TradingCategory
 
 
 class TradingCategories(AsyncBaseResource):

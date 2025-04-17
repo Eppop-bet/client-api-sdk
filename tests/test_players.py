@@ -1,11 +1,10 @@
 import pytest
 from datetime import datetime, timezone
 
-from sync.session import AuthenticationError, EsourceCommunicationError
-from sync.players import Players
-from models.models import Player
 from conftest import create_mock_response, PLAYER_1, PLAYER_2
-
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Player
+from esource_client_api.sync.players import Players
 
 MOCK_PLAYER_LIST_DATA = [PLAYER_1, PLAYER_2]
 

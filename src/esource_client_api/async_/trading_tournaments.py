@@ -2,7 +2,7 @@ from typing import List
 
 from .base_resource import AsyncBaseResource
 from .session import AsyncSession
-from models.models import TradingTournament
+from ..models.models import TradingTournament
 
 
 class TradingTournaments(AsyncBaseResource):

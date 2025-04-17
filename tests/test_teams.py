@@ -1,10 +1,10 @@
 import pytest
 
-from sync.teams import Teams
-from models.models import Team, TeamWithPlayers, Player
-from sync.session import AuthenticationError, EsourceCommunicationError
 
 from conftest import create_mock_response, TEAM_1, TEAM_2, PLAYER_1, PLAYER_2
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Team, TeamWithPlayers, Player
+from esource_client_api.sync.teams import Teams
 
 MOCK_TEAM_LIST_DATA = [TEAM_1, TEAM_2]
 

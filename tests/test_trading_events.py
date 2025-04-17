@@ -1,9 +1,9 @@
 import pytest
 from datetime import datetime, timezone
 
-from sync.trading_events import TradingEvents
-from models.models import TradingEvent, TradingMarket, TradingOutcome, Sport
-from sync.session import AuthenticationError, EsourceCommunicationError
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import TradingEvent, Sport, TradingMarket, TradingOutcome
+from esource_client_api.sync.trading_events import TradingEvents
 
 from conftest import create_mock_response, TRADING_EVENT_1, TRADING_EVENT_2
 

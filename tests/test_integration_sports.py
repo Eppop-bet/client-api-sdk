@@ -1,7 +1,8 @@
 import pytest
-from sync.session import Session
-from sync.sports import Sports
-from models.models import Sport
+
+from esource_client_api.models.models import Sport
+from esource_client_api.sync.session import Session
+from esource_client_api.sync.sports import Sports
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 

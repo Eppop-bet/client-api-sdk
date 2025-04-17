@@ -1,9 +1,9 @@
 import pytest
 
-from async_.session import AsyncSession
-from async_.sports import Sports
-from models.models import Sport
+from esource_client_api.async_.session import AsyncSession
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
+from esource_client_api.async_.sports import Sports
+from esource_client_api.models.models import Sport
 
 
 @pytest.mark.asyncio

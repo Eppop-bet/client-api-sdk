@@ -1,10 +1,10 @@
 import pytest
 
-from sync.maps import Maps
-from models.models import Map
-from sync.session import AuthenticationError, EsourceCommunicationError
 
 from conftest import create_mock_response, MAP_1, MAP_2
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Map
+from esource_client_api.sync.maps import Maps
 
 MOCK_MAP_LIST_DATA = [MAP_1, MAP_2]
 

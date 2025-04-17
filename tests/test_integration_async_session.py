@@ -1,7 +1,7 @@
 import pytest
 from datetime import datetime, timezone
 
-from async_.session import AsyncSession, AuthenticationError, EsourceCommunicationError
+from esource_client_api.async_.session import AsyncSession, AuthenticationError, EsourceCommunicationError
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
 
 

@@ -1,7 +1,7 @@
 from typing import List
 
 from .base_resource import BaseResource
-from models.models import TradingTournament
+from ..models.models import TradingTournament
 
 
 class TradingTournaments(BaseResource):

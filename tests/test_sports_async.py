@@ -1,9 +1,9 @@
 import pytest
 
-from async_.session import AsyncSession
-from models.errors import AuthenticationError, EsourceCommunicationError
-from models.models import Sport
-from async_.sports import Sports
+from esource_client_api.async_.sports import Sports
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Sport
+from esource_client_api.async_.session import AsyncSession
 from conftest import SPORT_1, SPORT_2, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
 
 MOCK_SPORT_LIST_DATA = [SPORT_1, SPORT_2]

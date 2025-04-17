@@ -1,7 +1,8 @@
 import pytest
 from datetime import datetime, timezone
-from sync.session import Session, AuthenticationError
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
+from esource_client_api.models.errors import AuthenticationError
+from esource_client_api.sync.session import Session
 
 
 @pytest.mark.integration

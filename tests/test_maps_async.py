@@ -1,12 +1,12 @@
 import pytest
 import httpx
 
-from async_.maps import Maps
-from async_.session import AsyncSession
-from models.models import Map
-from models.errors import AuthenticationError, EsourceCommunicationError
 
 from conftest import MAP_1, MAP_2, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
+from esource_client_api.async_.maps import Maps
+from esource_client_api.async_.session import AsyncSession
+from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
+from esource_client_api.models.models import Map
 
 MOCK_MAP_LIST_DATA = [MAP_1, MAP_2]
 

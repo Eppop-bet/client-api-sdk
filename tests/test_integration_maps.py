@@ -1,10 +1,10 @@
 import pytest
 
-from sync.session import Session
-from sync.maps import Maps
-from sync.client import SyncClient
-from models.models import Map
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
+from esource_client_api.models.models import Map
+from esource_client_api.sync.client import SyncClient
+from esource_client_api.sync.maps import Maps
+from esource_client_api.sync.session import Session
 
 
 @pytest.mark.integration

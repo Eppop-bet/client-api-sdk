@@ -2,8 +2,8 @@ import requests
 from datetime import datetime, timedelta, timezone
 import logging
 
-from models.models import SignInResponse
-from models.errors import AuthenticationError, EsourceCommunicationError
+from ..models.models import SignInResponse
+from ..models.errors import AuthenticationError, EsourceCommunicationError
 
 logger = logging.getLogger(__name__)
 

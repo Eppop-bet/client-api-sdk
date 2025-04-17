@@ -1,10 +1,10 @@
 import pytest
 
-from async_.client import AsyncClient
-from async_.session import AsyncSession
-from async_.maps import Maps
-from models.models import Map
+from esource_client_api.async_.client import AsyncClient
+from esource_client_api.async_.maps import Maps
+from esource_client_api.async_.session import AsyncSession
 from conftest import API_URL, TEST_EMAIL, TEST_PASSWORD
+from esource_client_api.models.models import Map
 
 
 @pytest.mark.asyncio

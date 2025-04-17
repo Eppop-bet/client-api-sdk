@@ -2,7 +2,7 @@ from typing import List
 
 from .base_resource import BaseResource
 from .session import Session
-from models.models import Team, TeamWithPlayers
+from ..models.models import Team, TeamWithPlayers
 
 
 class Teams(BaseResource):
