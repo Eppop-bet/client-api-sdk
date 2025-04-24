@@ -160,6 +160,7 @@ Refer to the method docstrings within the SDK or the official Esource API docume
 ## API URL & Docs
 
 URL to interact with the API: https://esource.gg/api/
+
 Swagger Docs for Api are available here: https://esource.gg/api/docs/
 
 Please contact support for access.
