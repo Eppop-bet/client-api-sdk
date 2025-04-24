@@ -1,10 +1,9 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "esource_client_api"
-version = "1.1.0"
 description = "Python SDK for the Esource.gg Client API"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -17,6 +16,7 @@ dependencies = [
     "pydantic>=2.0",
     "httpx>=0.20.0"
 ]
+dynamic = ["version"]
 
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -38,3 +38,5 @@ Repository = "https://github.com/Eppop-bet/client-api-sdk"
 [tool.setuptools.packages.find]
 where = ["src"]
 exclude = ["tests*"]
+
+[tool.setuptools_scm]
