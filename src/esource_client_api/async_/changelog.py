@@ -9,7 +9,7 @@ class Changelog(AsyncBaseResource):
     """Handles operations related to the /changelog endpoint."""
     def __init__(self, session: AsyncSession):
         super().__init__(session)
-        self.base_url = "/changelog"
+        self.base_url = "v1/changelog"
 
     async def list_changelogs(self, timestamp) -> List[ChangeLog]:
         """

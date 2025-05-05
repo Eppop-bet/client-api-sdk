@@ -80,6 +80,7 @@ def mock_session(mocker):
 
 
 MOCK_BASE_URL = "http://mock-api.test/api"
+MOCK_BASE_URL_V1 = "http://mock-api.test/api/v1"
 
 MOCK_LOGIN_SUCCESS_DATA = {
     "AccessToken": "mock-pytest-httpx-token-123",

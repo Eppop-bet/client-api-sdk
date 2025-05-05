@@ -9,7 +9,7 @@ class Players(AsyncBaseResource):
     """Handles operations related to the /players endpoint."""
     def __init__(self, session: AsyncSession):
         super().__init__(session)
-        self.base_url = "/players"
+        self.base_url = "v1/players"
 
     async def list_players(self, skip=None, take=None, order_by=None, search=None) -> List[Player]:
         """

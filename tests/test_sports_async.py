@@ -4,7 +4,7 @@ from esource_client_api.async_.sports import Sports
 from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
 from esource_client_api.models.models import Sport
 from esource_client_api.async_.session import AsyncSession
-from conftest import SPORT_1, SPORT_2, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
+from conftest import SPORT_1, SPORT_2, MOCK_BASE_URL_V1, MOCK_LOGIN_SUCCESS_DATA, MOCK_BASE_URL
 
 MOCK_SPORT_LIST_DATA = [SPORT_1, SPORT_2]
 
@@ -12,13 +12,13 @@ MOCK_SPORT_LIST_DATA = [SPORT_1, SPORT_2]
 @pytest.mark.asyncio
 async def test_list_sports_success(httpx_mock):
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/sports",
+        url=f"{MOCK_BASE_URL_V1}/sports",
         method="GET",
         json=MOCK_SPORT_LIST_DATA,
         status_code=200
@@ -41,13 +41,13 @@ async def test_get_sport_success(httpx_mock):
     sport_id_to_get = 3
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/sports/{sport_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/sports/{sport_id_to_get}",
         method="GET",
         json=SPORT_1,
         status_code=200
@@ -68,13 +68,13 @@ async def test_get_sport_not_found(httpx_mock):
     sport_id_to_get = 999
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/sports/{sport_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/sports/{sport_id_to_get}",
         method="GET",
         text="Not Found",
         status_code=404
@@ -94,14 +94,14 @@ async def test_list_sports_auth_error(httpx_mock):
     """Test handling of a 401 error when listing sports."""
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/sports",
+        url=f"{MOCK_BASE_URL_V1}/sports",
         method="GET",
         text="Unauthorized",
         status_code=401

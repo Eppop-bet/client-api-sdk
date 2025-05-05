@@ -9,7 +9,7 @@ class Changelog(BaseResource):
     """Handles operations related to the /changelog endpoint."""
     def __init__(self, session: Session):
         super().__init__(session)
-        self.base_url = "/changelog"
+        self.base_url = "v1/changelog"
 
     def list_changelogs(self, timestamp) -> List[ChangeLog]:
         """

@@ -5,7 +5,7 @@ from esource_client_api.models.errors import EsourceCommunicationError, Authenti
 from esource_client_api.models.models import TradingCategory
 from esource_client_api.async_.trading_categories import TradingCategories
 from esource_client_api.async_.session import AsyncSession
-from conftest import MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA, CATEGORY_1
+from conftest import MOCK_BASE_URL_V1, MOCK_LOGIN_SUCCESS_DATA, CATEGORY_1, MOCK_BASE_URL
 from tests.test_trading_categories import MOCK_CATEGORY_LIST_DATA
 
 
@@ -13,10 +13,10 @@ from tests.test_trading_categories import MOCK_CATEGORY_LIST_DATA
 async def test_list_trading_categories_success(httpx_mock):
     """Test successfully listing trading categories."""
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/trading-categories", method="GET", json=MOCK_CATEGORY_LIST_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/trading-categories", method="GET", json=MOCK_CATEGORY_LIST_DATA, status_code=200
     )
 
     async with AsyncSession(base_url=MOCK_BASE_URL) as session:
@@ -37,11 +37,11 @@ async def test_list_trading_categories_success(httpx_mock):
 async def test_list_trading_categories_with_filters_success(httpx_mock):
     """Test listing trading categories with filters."""
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
 
     expected_params = {"sportId": "3", "search": "League", "skip": "0", "take": "5"}
-    expected_url = httpx.URL(f"{MOCK_BASE_URL}/trading-categories", params=expected_params)
+    expected_url = httpx.URL(f"{MOCK_BASE_URL_V1}/trading-categories", params=expected_params)
 
     mock_filtered_data = [c for c in MOCK_CATEGORY_LIST_DATA if c["sportId"] == 3 and "League" in c["name"]]
 
@@ -75,10 +75,10 @@ async def test_get_trading_category_success(httpx_mock):
     """Test successfully getting a single trading category."""
     category_id_to_get = 10
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/trading-categories/{category_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/trading-categories/{category_id_to_get}",
         method="GET",
         json=CATEGORY_1,
         status_code=200
@@ -100,10 +100,10 @@ async def test_get_trading_category_not_found(httpx_mock):
     """Test handling 404 when getting a trading category."""
     category_id_to_get = 999
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/trading-categories/{category_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/trading-categories/{category_id_to_get}",
         method="GET",
         text="Category Not Found",
         status_code=404
@@ -124,10 +124,10 @@ async def test_get_trading_category_not_found(httpx_mock):
 async def test_list_trading_categories_auth_error(httpx_mock):
     """Test handling 401 when listing trading categories."""
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/trading-categories", method="GET", text="Unauthorized", status_code=401
+        url=f"{MOCK_BASE_URL_V1}/trading-categories", method="GET", text="Unauthorized", status_code=401
     )
 
     async with AsyncSession(base_url=MOCK_BASE_URL) as session:

@@ -2,7 +2,7 @@ import pytest
 import httpx
 
 
-from conftest import MAP_1, MAP_2, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
+from conftest import MAP_1, MAP_2, MOCK_BASE_URL_V1, MOCK_LOGIN_SUCCESS_DATA, MOCK_BASE_URL
 from esource_client_api.async_.maps import Maps
 from esource_client_api.async_.session import AsyncSession
 from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
@@ -14,13 +14,13 @@ MOCK_MAP_LIST_DATA = [MAP_1, MAP_2]
 @pytest.mark.asyncio
 async def test_list_maps_success(httpx_mock):
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/maps",
+        url=f"{MOCK_BASE_URL_V1}/maps",
         method="GET",
         json=MOCK_MAP_LIST_DATA,
         status_code=200
@@ -44,11 +44,11 @@ async def test_list_maps_success(httpx_mock):
 @pytest.mark.asyncio
 async def test_list_maps_with_params_success(httpx_mock):
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
 
     expected_params = {"skip": "10", "take": "5", "search": "Train", "orderBy": "name", "orderDir": "asc"}
-    expected_url = httpx.URL(f"{MOCK_BASE_URL}/maps", params=expected_params)
+    expected_url = httpx.URL(f"{MOCK_BASE_URL_V1}/maps", params=expected_params)
 
     httpx_mock.add_response(
         url=expected_url,
@@ -79,10 +79,10 @@ async def test_get_map_success(httpx_mock):
     map_id_to_get = 1
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/maps/{map_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/maps/{map_id_to_get}",
         method="GET",
         json=MAP_1,
         status_code=200
@@ -104,10 +104,10 @@ async def test_get_map_success(httpx_mock):
 async def test_get_map_not_found(httpx_mock):
     map_id_to_get = 999
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/maps/{map_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/maps/{map_id_to_get}",
         method="GET",
         text="Map Not Found",
         status_code=404
@@ -127,10 +127,10 @@ async def test_get_map_not_found(httpx_mock):
 @pytest.mark.asyncio
 async def test_list_maps_auth_error(httpx_mock):
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/maps",
+        url=f"{MOCK_BASE_URL_V1}/maps",
         method="GET",
         text="Unauthorized",
         status_code=401

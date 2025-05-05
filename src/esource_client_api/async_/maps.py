@@ -9,7 +9,7 @@ class Maps(AsyncBaseResource):
     def __init__(self, session: AsyncSession):
         """Handles operations related to the /maps endpoint."""
         super().__init__(session)
-        self.base_url = "/maps"
+        self.base_url = "v1/maps"
 
     async def list_maps(self, skip=None, take=None, order_by=None, search=None) -> List[Map]:
         """

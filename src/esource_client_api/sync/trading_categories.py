@@ -8,7 +8,7 @@ class TradingCategories(BaseResource):
     """Handles operations related to the /trading-categories endpoint."""
     def __init__(self, session):
         super().__init__(session)
-        self.base_url = "/trading-categories"
+        self.base_url = "v1/trading-categories"
 
     def list_trading_categories(self, skip=None, take=None, search=None, sport_id=None) -> List[TradingCategory]:
         """
