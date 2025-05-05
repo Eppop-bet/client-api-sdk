@@ -9,7 +9,7 @@ class TradingCategories(AsyncBaseResource):
     """Handles operations related to the /trading-categories endpoint."""
     def __init__(self, session: AsyncSession):
         super().__init__(session)
-        self.base_url = "/trading-categories"
+        self.base_url = "v1/trading-categories"
 
     async def list_trading_categories(self, skip=None, take=None, search=None, sport_id=None) -> List[TradingCategory]:
         """

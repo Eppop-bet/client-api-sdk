@@ -68,7 +68,7 @@ class AsyncSession:
         try:
             response_json = await self._request(
                 "POST",
-                "/auth/sign-in",
+                "v1/auth/sign-in",
                 needs_auth=False,
                 json={
                     "email": login_email,

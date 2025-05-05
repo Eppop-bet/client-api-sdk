@@ -5,7 +5,7 @@ from esource_client_api.models.errors import EsourceCommunicationError, Authenti
 from esource_client_api.models.models import Team, TeamWithPlayers, Player
 from esource_client_api.async_.teams import Teams
 from esource_client_api.async_.session import AsyncSession
-from conftest import MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA, TEAM_1
+from conftest import MOCK_BASE_URL_V1, MOCK_LOGIN_SUCCESS_DATA, TEAM_1, MOCK_BASE_URL
 from tests.test_teams import MOCK_TEAM_WITH_PLAYERS_DATA, MOCK_TEAM_LIST_DATA
 
 MOCK_TEAM_PLAYERS_RESPONSE_DATA = [MOCK_TEAM_WITH_PLAYERS_DATA]
@@ -15,10 +15,10 @@ MOCK_TEAM_PLAYERS_RESPONSE_DATA = [MOCK_TEAM_WITH_PLAYERS_DATA]
 async def test_list_teams_success(httpx_mock):
     """Test successfully listing teams."""
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/teams", method="GET", json=MOCK_TEAM_LIST_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/teams", method="GET", json=MOCK_TEAM_LIST_DATA, status_code=200
     )
 
     async with AsyncSession(base_url=MOCK_BASE_URL) as session:
@@ -39,11 +39,11 @@ async def test_list_teams_success(httpx_mock):
 async def test_list_teams_with_params_success(httpx_mock):
     """Test listing teams with query parameters."""
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
 
     expected_params = {"skip": "5", "take": "2", "search": "Alpha", "orderBy": "name", "orderDir": "desc"}
-    expected_url = httpx.URL(f"{MOCK_BASE_URL}/teams", params=expected_params)
+    expected_url = httpx.URL(f"{MOCK_BASE_URL_V1}/teams", params=expected_params)
 
     httpx_mock.add_response(
         url=str(expected_url),
@@ -69,10 +69,10 @@ async def test_get_team_success(httpx_mock):
     """Test successfully getting a single team."""
     team_id_to_get = 201
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/teams/{team_id_to_get}", method="GET", json=TEAM_1, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/teams/{team_id_to_get}", method="GET", json=TEAM_1, status_code=200
     )
 
     async with AsyncSession(base_url=MOCK_BASE_URL) as session:
@@ -91,10 +91,10 @@ async def test_get_team_not_found(httpx_mock):
     """Test handling 404 when getting a team."""
     team_id_to_get = 999
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/teams/{team_id_to_get}", method="GET", text="Team Not Found", status_code=404
+        url=f"{MOCK_BASE_URL_V1}/teams/{team_id_to_get}", method="GET", text="Team Not Found", status_code=404
     )
 
     async with AsyncSession(base_url=MOCK_BASE_URL) as session:
@@ -112,11 +112,11 @@ async def test_get_team_players_success(httpx_mock):
     """Test getting a team with its players."""
     team_id_to_get = 201
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/teams/{team_id_to_get}/players",
+        url=f"{MOCK_BASE_URL_V1}/teams/{team_id_to_get}/players",
         method="GET",
         json=MOCK_TEAM_PLAYERS_RESPONSE_DATA,
         status_code=200
@@ -147,10 +147,10 @@ async def test_get_team_players_team_not_found(httpx_mock):
     """Test handling 404 when getting team players."""
     team_id_to_get = 999
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/teams/{team_id_to_get}/players",
+        url=f"{MOCK_BASE_URL_V1}/teams/{team_id_to_get}/players",
         method="GET",
         text="Team Not Found",
         status_code=404
@@ -170,10 +170,10 @@ async def test_get_team_players_team_not_found(httpx_mock):
 async def test_list_teams_auth_error(httpx_mock):
     """Test handling 401 when listing teams."""
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in", method="POST", json=MOCK_LOGIN_SUCCESS_DATA, status_code=200
     )
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/teams", method="GET", text="Unauthorized", status_code=401
+        url=f"{MOCK_BASE_URL_V1}/teams", method="GET", text="Unauthorized", status_code=401
     )
 
     async with AsyncSession(base_url=MOCK_BASE_URL) as session:

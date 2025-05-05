@@ -2,7 +2,7 @@ import httpx
 import pytest
 from datetime import datetime, timezone
 
-from conftest import PLAYER_1, PLAYER_2, MOCK_BASE_URL, MOCK_LOGIN_SUCCESS_DATA
+from conftest import PLAYER_1, PLAYER_2, MOCK_BASE_URL_V1, MOCK_LOGIN_SUCCESS_DATA, MOCK_BASE_URL
 from esource_client_api.async_.players import Players
 from esource_client_api.async_.session import AsyncSession
 from esource_client_api.models.errors import EsourceCommunicationError, AuthenticationError
@@ -16,14 +16,14 @@ async def test_list_players_success(httpx_mock):
     """Test successfully listing players with mock data."""
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
 
     expected_params = {"skip": "10", "take": "5", "search": "Mock", "orderBy": "name", "orderDir": "desc"}
-    expected_url = httpx.URL(f"{MOCK_BASE_URL}/players", params=expected_params)
+    expected_url = httpx.URL(f"{MOCK_BASE_URL_V1}/players", params=expected_params)
     httpx_mock.add_response(
         url=expected_url,
         method="GET",
@@ -52,14 +52,14 @@ async def test_get_player_success(httpx_mock):
     player_id_to_get = 101
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/players/{player_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/players/{player_id_to_get}",
         method="GET",
         json=PLAYER_1,
         status_code=200
@@ -81,14 +81,14 @@ async def test_get_player_not_found(httpx_mock):
     player_id_to_get = 999
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/players/{player_id_to_get}",
+        url=f"{MOCK_BASE_URL_V1}/players/{player_id_to_get}",
         method="GET",
         text="Player not found",
         status_code=404
@@ -110,14 +110,14 @@ async def test_list_players_auth_error(httpx_mock):
     """Test handling of a 401 error when listing players."""
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/auth/sign-in",
+        url=f"{MOCK_BASE_URL_V1}/auth/sign-in",
         method="POST",
         json=MOCK_LOGIN_SUCCESS_DATA,
         status_code=200
     )
 
     httpx_mock.add_response(
-        url=f"{MOCK_BASE_URL}/players",
+        url=f"{MOCK_BASE_URL_V1}/players",
         method="GET",
         text="Unauthorized",
         status_code=401

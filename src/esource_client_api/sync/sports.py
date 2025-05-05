@@ -9,7 +9,7 @@ class Sports(BaseResource):
     """Handles operations related to the /sports endpoint."""
     def __init__(self, session: Session):
         super().__init__(session)
-        self.base_url = "/sports"
+        self.base_url = "v1/sports"
 
     def list_sports(self, skip=None, take=None, order_by=None, search=None) -> List[Sport]:
         """
