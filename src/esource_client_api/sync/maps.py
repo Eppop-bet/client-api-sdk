@@ -9,7 +9,7 @@ class Maps(BaseResource):
     """Handles operations related to the /maps endpoint."""
     def __init__(self, session: Session):
         super().__init__(session)
-        self.base_url = "/maps"
+        self.base_url = "v1/maps"
 
     def list_maps(self, skip=None, take=None, order_by=None, search=None) -> List[Map]:
         """

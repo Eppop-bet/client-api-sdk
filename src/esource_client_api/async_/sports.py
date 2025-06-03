@@ -9,7 +9,7 @@ class Sports(AsyncBaseResource):
     """Handles operations related to the /sports endpoint."""
     def __init__(self, session: AsyncSession):
         super().__init__(session)
-        self.base_url = "/sports"
+        self.base_url = "v1/sports"
 
     async def list_sports(self, skip=None, take=None, order_by=None, search=None) -> List[Sport]:
         """

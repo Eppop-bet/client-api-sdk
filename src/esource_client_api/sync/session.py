@@ -63,7 +63,7 @@ class Session:
         self.session.headers.pop("Authorization", None)
 
         try:
-            response_json = self.post("/auth/sign-in", json={
+            response_json = self.post("v1/auth/sign-in", json={
                 "email": email,
                 "password": password
             })

@@ -9,7 +9,7 @@ class TradingEvents(BaseResource):
     """Handles operations related to the /trading-events endpoint."""
     def __init__(self, session: Session):
         super().__init__(session)
-        self.base_url = "/trading-events"
+        self.base_url = "v1/trading-events"
 
     def list_trading_events(
             self,

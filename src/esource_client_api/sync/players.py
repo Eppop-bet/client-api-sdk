@@ -8,7 +8,7 @@ class Players(BaseResource):
     """Handles operations related to the /players endpoint."""
     def __init__(self, session):
         super().__init__(session)
-        self.base_url = "/players"
+        self.base_url = "v1/players"
 
     def list_players(self, skip=None, take=None, order_by=None, search=None) -> List[Player]:
         """

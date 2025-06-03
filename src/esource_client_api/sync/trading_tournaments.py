@@ -8,7 +8,7 @@ class TradingTournaments(BaseResource):
     """Handles operations related to the /trading-tournaments endpoint."""
     def __init__(self, session):
         super().__init__(session)
-        self.base_url = "/trading-tournaments"
+        self.base_url = "v1/trading-tournaments"
 
     def list_trading_tournaments(
             self,
