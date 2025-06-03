@@ -14,5 +14,3 @@ async def test_changelog_using_client():
     response = await client.changelog.list_changelogs(timestamp)
 
     assert isinstance(response, list)
-
-
